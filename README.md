@@ -11,8 +11,8 @@
 ### 1 Клонирование репозиториев
 - Склонировать git@github.com:AlexVasechkin/e-commerce_root.git
 - Перейти в папку с проектом
-- Склонировать репозиторий с бэкэнд: git@github.com:AlexVasechkin/e-commerse_back.git, переименовать папку e-commerse_back -> shop_back
-- Склонировать репозиторий с фронтом админки: git@github.com:AlexVasechkin/e-commerce_cp-react.git, переименовать папку e-commerce_cp-react -> cp-react
+- Склонировать репозиторий с бэкэндом: перейти в папку shop_back и выполнить git clone git@github.com:AlexVasechkin/e-commerse_back.git, переименовать папку e-commerse_back -> app
+- Склонировать репозиторий с фронтом админки: перейти обратно в корень проекта git@github.com:AlexVasechkin/e-commerce_cp-react.git, переименовать папку e-commerce_cp-react -> cp-react
 - Склонировать репозиторий с исходником шаблона админ панели: git@github.com:AlexVasechkin/e-commerce_admin-template.git, можно переименовать как угодно.
 
 ### 2 Запуск окружения docker-compose
