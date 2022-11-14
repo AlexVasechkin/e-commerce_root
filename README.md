@@ -42,9 +42,10 @@ docker ps
 ```
 Вывод покажет что-то наподобие:
 | CONTAINER ID | IMAGE | COMMAND | CREATED | STATUS | PORTS | NAMES |
-| 28f46835032d | nginx:alpine | "/docker-entrypoint.…" | 4 weeks ago | Up About an hour | 80/tcp, 0.0.0.0:6080->6080/tcp | shop-shop_proxy-1 |
+| ------ | ------ | ------ | ------ | ------ | ------ | ------ |
+| 28f46835032d | nginx:alpine | "/docker-entrypoint.…" | 4 weeks ago | Up About an hour | 80/tcp, 0.0.0.0:6080->6080/tcp | shop-shop_proxy-1 | 
 | 05a6d8c24be4 | webdevops/php-dev:7.4-alpine | "/entrypoint supervi…" | 4 weeks ago | Up About an hour | 9000/tcp, 0.0.0.0:9003->9003/tcp | shop-shop_back-1 |
-| 2e4177f7c03e |  postgres:13 | "docker-entrypoint.s…" | 4 weeks ago | Up About an hour | 0.0.0.0:5432->5432/tcp | shop-shop_db-1 |
+| 2e4177f7c03e | postgres:13 | "docker-entrypoint.s…" | 4 weeks ago | Up About an hour | 0.0.0.0:5432->5432/tcp | shop-shop_db-1 |
 
 Чтобы подключиться к bash конейтейнера копируем контейнера CONTAINER ID для shop-shop_back-1 (webdevops/php-dev:7.4-alpine) и выполняем команду подяставляя в качестве аргумента:
 ```sh
