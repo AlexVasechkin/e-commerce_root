@@ -17,13 +17,3 @@ services:
       - shop_db
     volumes:
      - ./shop_back/app:/app/code
-
-  shop_db:
-    image: postgres:13
-    restart: unless-stopped
-    environment:
-      POSTGRES_PASSWORD: 123456
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./db/postgres:/var/lib/postgresql/data

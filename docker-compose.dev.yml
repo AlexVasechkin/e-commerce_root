@@ -11,3 +11,13 @@ services:
       - XDEBUG_CLIENT_HOST=host.docker.internal
       - XDEBUG_CLIENT_PORT=9003
       - XDEBUG_IDE_KEY=PHP_IDE_CONFIG
+
+  shop_db:
+    image: postgres:13
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/postgres:/var/lib/postgresql/data
