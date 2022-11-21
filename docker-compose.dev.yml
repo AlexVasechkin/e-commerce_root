@@ -1,8 +1,14 @@
 version: '3'
 
 services:
+  shop_proxy:
+    ports:
+      - "6080:6080"
+
   shop_back:
     image: webdevops/php-dev:7.4-alpine
+    depends_on:
+      - shop_db
     ports:
      - "9003:9003"
     environment:
