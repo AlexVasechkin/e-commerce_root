@@ -2,6 +2,9 @@
 /cp-react/
 /HTML/
 /shop_back/*
+/client-react/
+/client-next/
+/docker-resources/elasticsearch/data/*
 
 .DS_Store
 .idea
