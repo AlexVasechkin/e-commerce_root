@@ -4,7 +4,7 @@ services:
   shop_client-front:
     build: ./client-next
     container_name: shop_client-front
-    command: "npm run start"
+    command: "npm run build && npm run start"
     stdin_open: true
     tty: true
     depends_on:
