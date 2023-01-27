@@ -3,7 +3,7 @@
 /HTML/
 /shop_back/*
 /client-react/
-/client-next/
+/client-next/app/
 /docker-resources/elasticsearch/data/*
 
 .DS_Store
