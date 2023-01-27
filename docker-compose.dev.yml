@@ -1,14 +1,28 @@
 version: '3'
 
 services:
+  shop_redisinsight:
+    container_name: shop_redisinsight
+    image: redislabs/redisinsight:latest
+    ports:
+      - 8001:8001
+    networks:
+      - shop-network
+
+  shop_client-front:
+    command: "npm run dev"
+    volumes:
+      - ./client-next/app/pages:/usr/src/app/pages
+      - ./client-next/app/components:/usr/src/app/components
+      - ./client-next/app/styles:/usr/src/app/styles
+
   shop_proxy:
     ports:
-      - "6080:6080"
+      - 4080:80
 
   shop_back:
-    image: webdevops/php-dev:7.4-alpine
-    depends_on:
-      - shop_db
+    volumes:
+     - ./shop_back/app/src:/app/src
     ports:
      - "9003:9003"
     environment:
@@ -17,19 +31,14 @@ services:
       - XDEBUG_CLIENT_HOST=host.docker.internal
       - XDEBUG_CLIENT_PORT=9003
       - XDEBUG_IDE_KEY=PHP_IDE_CONFIG
+    networks:
+      - local-db-network
 
-  shop_db:
-    image: postgres:13
-    restart: unless-stopped
-    environment:
-      POSTGRES_PASSWORD: 123456
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./db/postgres:/var/lib/postgresql/data
+  shop_migrations:
+    networks:
+      - local-db-network
 
-  shop_redisinsight:
-    container_name: shop_redisinsight
-    image: redislabs/redisinsight:latest
-    ports:
-      - 8001:8001
+networks:
+  local-db-network:
+    name: local-db-network
+    external: true

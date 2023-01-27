@@ -1,45 +1,75 @@
 version: '3'
 
 services:
+  shop_client-front:
+    build: ./client-next
+    container_name: shop_client-front
+    command: "npm run start"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - shop_proxy
+      - shop_back
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    networks:
+      - shop-network
+
   shop_proxy:
+    container_name: shop_proxy
     image: nginx:alpine
     depends_on:
       - shop_back
     volumes:
      - ./docker-resources/nginx:/etc/nginx/conf.d
-     - ./shop_back/app:/app/code
+     - ./shop_back/app:/app
+    networks:
+      - shop-network
 
   shop_back:
-    image: webdevops/php:7.4-alpine
-    volumes:
-     - ./shop_back/app:/app/code
+    build: ./shop_back
+    container_name: shop_back
+    depends_on:
+      - shop_migrations
+    networks:
+      - shop-network
 
-  shop_elasticsearch:
-    container_name: shop_elasticsearch
-    image: elasticsearch:8.5.2
-    environment:
-      - xpack.security.enabled=false
-      - discovery.type=single-node
-      # - bootstrap.memory_lock=true
-      # - ES_JAVA_OPTS=-Xms512m -Xmx512m
-    # ulimits:
-    #   memlock:
-    #     soft: -1
-    #     hard: -1
-    #   nofile:
-    #     soft: 65536
-    #     hard: 65536
-    ports:
-      - 9200:9200
-    volumes:
-      - ./docker-resources/elasticsearch/data:/usr/share/elasticsearch/data
+  # shop_elasticsearch:
+  #   container_name: shop_elasticsearch
+  #   image: elasticsearch:8.5.2
+  #   environment:
+  #     - xpack.security.enabled=false
+  #     - discovery.type=single-node
+  #     # - bootstrap.memory_lock=true
+  #     # - ES_JAVA_OPTS=-Xms512m -Xmx512m
+  #   # ulimits:
+  #   #   memlock:
+  #   #     soft: -1
+  #   #     hard: -1
+  #   #   nofile:
+  #   #     soft: 65536
+  #   #     hard: 65536
+  #   ports:
+  #     - 9200:9200
+  #   volumes:
+  #     - ./docker-resources/elasticsearch/data:/usr/share/elasticsearch/data
+  #   networks:
+  #     - shop-network
 
   shop_redis:
     container_name: shop_redis
     image: redis:latest
+    networks:
+      - shop-network
 
-  # shop_kibana:
-  #   container_name: shop_kibana
-  #   image: kibana:8.5.2
-  #   ports:
-  #     - 5601:5601
+  shop_migrations:
+    container_name: shop_migrations
+    command: 'php bin/console doctrine:migrations:migrate'
+    build: ./shop_back
+    networks:
+      - shop-network
+
+networks:
+  shop-network:
+    driver: bridge
