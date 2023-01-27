@@ -57,7 +57,7 @@ services:
   #   networks:
   #     - shop-network
 
-  shop_redis:
+  redis:
     container_name: shop_redis
     image: redis:latest
     networks:
