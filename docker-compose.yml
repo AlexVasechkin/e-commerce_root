@@ -1,24 +1,11 @@
 version: '3'
 
 services:
-  shop_client-front:
-    build: ./client-next
-    container_name: shop_client-front
-    command: "npm run start"
-    stdin_open: true
-    tty: true
-    depends_on:
-      - shop_proxy
-      - shop_back
-    ports:
-      - 3000:3000
-    restart: unless-stopped
-    networks:
-      - shop-network
-
   shop_proxy:
     container_name: shop_proxy
     image: nginx:alpine
+    ports:
+      - 4080:80
     depends_on:
       - shop_back
     volumes:
@@ -26,6 +13,7 @@ services:
      - ./shop_back/app:/app
     networks:
       - shop-network
+      - shop-network-external
 
   shop_back:
     build: ./shop_back
@@ -35,27 +23,27 @@ services:
     networks:
       - shop-network
 
-  # shop_elasticsearch:
-  #   container_name: shop_elasticsearch
-  #   image: elasticsearch:8.5.2
-  #   environment:
-  #     - xpack.security.enabled=false
-  #     - discovery.type=single-node
-  #     # - bootstrap.memory_lock=true
-  #     # - ES_JAVA_OPTS=-Xms512m -Xmx512m
-  #   # ulimits:
-  #   #   memlock:
-  #   #     soft: -1
-  #   #     hard: -1
-  #   #   nofile:
-  #   #     soft: 65536
-  #   #     hard: 65536
-  #   ports:
-  #     - 9200:9200
-  #   volumes:
-  #     - ./docker-resources/elasticsearch/data:/usr/share/elasticsearch/data
-  #   networks:
-  #     - shop-network
+  shop_elasticsearch:
+    container_name: shop_elasticsearch
+    image: elasticsearch:8.5.2
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+      # - bootstrap.memory_lock=true
+      # - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    # ulimits:
+    #   memlock:
+    #     soft: -1
+    #     hard: -1
+    #   nofile:
+    #     soft: 65536
+    #     hard: 65536
+    ports:
+      - 9200:9200
+    volumes:
+      - ./docker-resources/elasticsearch/data:/usr/share/elasticsearch/data
+    networks:
+      - shop-network
 
   redis:
     container_name: shop_redis
@@ -73,3 +61,7 @@ services:
 networks:
   shop-network:
     driver: bridge
+
+  shop-network-external:
+    name: shop-network-external
+    external: true

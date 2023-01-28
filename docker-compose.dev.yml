@@ -9,17 +9,6 @@ services:
     networks:
       - shop-network
 
-  shop_client-front:
-    command: "npm run dev"
-    volumes:
-      - ./client-next/app/pages:/usr/src/app/pages
-      - ./client-next/app/components:/usr/src/app/components
-      - ./client-next/app/styles:/usr/src/app/styles
-
-  shop_proxy:
-    ports:
-      - 4080:80
-
   shop_back:
     volumes:
      - ./shop_back/app/src:/app/src
