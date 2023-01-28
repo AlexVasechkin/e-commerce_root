@@ -63,5 +63,4 @@ networks:
     driver: bridge
 
   shop-network-external:
-    name: shop-network-external
     external: true
