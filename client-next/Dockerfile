@@ -7,4 +7,5 @@ COPY ./app .
 RUN    rm -rfv ./node_modules \
     && rm package-lock.json
 
-RUN npm install
+RUN npm install \
+&& npm run build
