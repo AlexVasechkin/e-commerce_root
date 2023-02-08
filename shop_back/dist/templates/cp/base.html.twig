@@ -169,7 +169,7 @@
 </div>
 <!-- End Containerbar -->
 <!-- Start js -->
-<script src="{{ asset('cp/cp-react/js/script.js') }}"></script>
+<script src="{{ asset(app.request.server.get('MAIN_SCRIPT_PATH')) }}"></script>
 <script src="{{ asset('cp/assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('cp/assets/js/popper.min.js') }}"></script>
 <script src="{{ asset('cp/assets/js/bootstrap.min.js') }}"></script>
