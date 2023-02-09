@@ -4,4 +4,5 @@ WORKDIR /app
 
 COPY ./dist .
 
-RUN composer install
+RUN composer config --no-plugins allow-plugins.php-http/discovery true \
+&& composer install

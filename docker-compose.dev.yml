@@ -11,7 +11,10 @@ services:
 
   shop_back:
     volumes:
-     - ./shop_back/app/src:/app/src
+     - ./shop_back/dist/src:/app/src
+     - ./shop_back/dist/config:/app/config
+     - ./shop_back/dist/migrations:/app/migrations
+     - ./shop_back/dist/templates:/app/templates
     ports:
      - "9003:9003"
     environment:
@@ -20,6 +23,13 @@ services:
       - XDEBUG_CLIENT_HOST=host.docker.internal
       - XDEBUG_CLIENT_PORT=9003
       - XDEBUG_IDE_KEY=PHP_IDE_CONFIG
+    networks:
+      - local-db-network
+
+  queue-consumer:
+    volumes:
+      - ./shop_back/dist/src:/app/src
+      - ./shop_back/dist/migrations:/app/migrations
     networks:
       - local-db-network
 

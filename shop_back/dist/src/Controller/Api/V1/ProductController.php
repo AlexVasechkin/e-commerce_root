@@ -128,32 +128,37 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/api/v1/private/products", methods={"GET"})
-     * @param ProductRepository $productRepository
+     * @Route("/api/v1/private/products", methods={"POST"})
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function list(
-        ProductRepository $productRepository
+        Request $httpRequest,
+        FindProductsAction $findProductsAction
     ) {
-        $idList = $productRepository->getFullIdList();
-
-        $pagination = (new Paginator())->paginate(
-            (new PaginatorRequest($idList))
-                ->setCurrentPage(1)
-                ->setLimit(10)
-        );
+        $rp = $httpRequest->toArray();
 
         return $this->json([
-            'payload' => array_map(function (Product $product) {
-                return [
-                    'id' => $product->getId(),
-                    'code' => $product->getCode(),
-                    'name' => $product->getName(),
-                    'count' => $product->getCount()
-                ];
-            }, $productRepository->findById($pagination->getIdList())),
-            'totalPageCount' => $pagination->getTotalPageCount()
+            'payload' => $findProductsAction->execute($rp['filters'] ?? [])
         ]);
+//        $idList = $productRepository->getFullIdList();
+//
+//        $pagination = (new Paginator())->paginate(
+//            (new PaginatorRequest($idList))
+//                ->setCurrentPage(1)
+//                ->setLimit(10)
+//        );
+//
+//        return $this->json([
+//            'payload' => array_map(function (Product $product) {
+//                return [
+//                    'id' => $product->getId(),
+//                    'code' => $product->getCode(),
+//                    'name' => $product->getName(),
+//                    'count' => $product->getCount()
+//                ];
+//            }, $productRepository->findById($pagination->getIdList())),
+//            'totalPageCount' => $pagination->getTotalPageCount()
+//        ]);
     }
 
     /**
