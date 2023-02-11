@@ -71,11 +71,13 @@ class FetchProductsAction
             $pci = $product->getProductCategoryItems()->first();
             return [
                 'id' => $product->getId(),
+                'code' => $product->getCode(),
                 'name' => $product->getName(),
                 'price' => $product->getPrice() ?? 0,
+                'count' => $product->getCount() ?? 0,
                 'images' => $images[$product->getId()] ?? [],
                 'vendor' => $vendors[$product->getVendor()->getId()] ?? [],
-                'productCategory' => $productCategories[$pci->getCategory()->getId()] ?? []
+                'productCategory' => $productCategories[$pci->getCategory()->getId()] ?? [],
             ];
         }, $this->productRepository->findBy(['id' => $idList]));
     }

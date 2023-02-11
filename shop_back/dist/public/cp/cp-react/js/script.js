@@ -4227,7 +4227,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const CategoryPropertyTableRow = _ref => {
   let {
     row = {
@@ -4248,7 +4247,6 @@ const CategoryPropertyTableRow = _ref => {
   const [unit, setUnit] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(row.unit ?? '');
   const [isActive, setIsActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(row.isActive ?? null);
   const [type, setType] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(row.type ?? '');
-
   const getIsActiveValue = () => {
     if (isActive === null) {
       return '';
@@ -4258,7 +4256,6 @@ const CategoryPropertyTableRow = _ref => {
       return '0';
     }
   };
-
   const save = () => {
     setIsAwait(true);
     axios__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/v1/private/category-property/update', {
@@ -4274,7 +4271,6 @@ const CategoryPropertyTableRow = _ref => {
       setType(row.type ?? '');
     }).finally(() => setIsAwait(false));
   };
-
   const remove = () => {
     setIsAwait(true);
     axios__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/v1/private/category-property/remove', {
@@ -4283,7 +4279,6 @@ const CategoryPropertyTableRow = _ref => {
       _state__WEBPACK_IMPORTED_MODULE_2__["default"].removeDsItem(id);
     }).finally(() => setIsAwait(false));
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, `${row.id}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, `${row.categoryName}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, `${row.propertyName}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
     disabled: isAwait,
     className: "form-control",
@@ -4342,7 +4337,6 @@ const CategoryPropertyTableRow = _ref => {
     className: "fa fa-trash"
   })))));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CategoryPropertyTableRow);
 
 /***/ }),
@@ -4364,27 +4358,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const CategoryPropertyTable = _ref => {
   let {
     dataSet = []
   } = _ref;
-
   const getHead = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "ID"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044F"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u043E"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u0413\u0440\u0443\u043F\u043F\u0430"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u0422\u0438\u043F"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u0415\u0434. \u0438\u0437\u043C"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u0410\u043A\u0442\u0438\u0432\u043D\u043E"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u044F"));
-
   const wrapRow = row => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_category_property_table_row__WEBPACK_IMPORTED_MODULE_2__["default"], {
     key: `cp${row.id}`,
     row: row
   });
-
   const getBody = () => dataSet.map(row => wrapRow(row));
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_common_data_table__WEBPACK_IMPORTED_MODULE_1__["default"], {
     getHead: getHead,
     getBody: getBody
   });
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CategoryPropertyTable);
 
 /***/ }),
@@ -4406,7 +4394,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const CategoryPropertyEditorCreateModal = _ref => {
   let {
     properties
@@ -4418,7 +4405,6 @@ const CategoryPropertyEditorCreateModal = _ref => {
     btnClasses: 'btn btn-outline-success'
   });
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CategoryPropertyEditorCreateModal);
 
 /***/ }),
@@ -4440,7 +4426,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const CategoryPropertyEditorCreatePropertyModal = () => {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_common_property_create_property_modal__WEBPACK_IMPORTED_MODULE_1__["default"], {
     btnClasses: 'btn btn-outline-success',
@@ -4448,7 +4433,6 @@ const CategoryPropertyEditorCreatePropertyModal = () => {
     buttonCaption: 'Добавить свойство'
   });
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CategoryPropertyEditorCreatePropertyModal);
 
 /***/ }),
@@ -4486,14 +4470,13 @@ const CategoryPropertyEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.o
   const getCategorySelectValue = () => {
     return _state__WEBPACK_IMPORTED_MODULE_3__["default"].filters.productCategoryIdList;
   };
-
   const setFilterValue = (key, value) => {
-    const filters = { ..._state__WEBPACK_IMPORTED_MODULE_3__["default"].filters
+    const filters = {
+      ..._state__WEBPACK_IMPORTED_MODULE_3__["default"].filters
     };
     filters[key] = value;
     _state__WEBPACK_IMPORTED_MODULE_3__["default"].filters = filters;
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "row"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -4533,16 +4516,13 @@ const CategoryPropertyEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.o
     dataSet: _state__WEBPACK_IMPORTED_MODULE_3__["default"].dataSet
   }))))));
 });
-
 const renderCategoryPropertyEditor = () => {
   const root = document.getElementById('category-property-editor-root');
-
   if (root !== null) {
     _state__WEBPACK_IMPORTED_MODULE_3__["default"].init();
     react_dom__WEBPACK_IMPORTED_MODULE_2__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(CategoryPropertyEditor, null), root);
   }
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (renderCategoryPropertyEditor);
 
 /***/ }),
@@ -4562,7 +4542,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
-
 class CategoryPropertyEditorState {
   isAwait = false;
   dataSet = [];
@@ -4571,7 +4550,6 @@ class CategoryPropertyEditorState {
   filters = {
     productCategoryIdList: []
   };
-
   reloadCategories() {
     axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/v1/private/product-category/dict').then(_ref => {
       let {
@@ -4588,14 +4566,13 @@ class CategoryPropertyEditorState {
       });
     });
   }
-
   reloadDataSet() {
     if (this.filters.productCategoryIdList === []) {
       return;
     }
-
     this.isAwait = true;
-    axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/v1/private/category-property/list', { ...this.filters
+    axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/v1/private/category-property/list', {
+      ...this.filters
     }).then(_ref2 => {
       let {
         data = {}
@@ -4608,15 +4585,12 @@ class CategoryPropertyEditorState {
       this.isAwait = false;
     });
   }
-
   removeDsItem(id) {
     const idx = this.dataSet.findIndex(el => el.id == id);
-
     if (idx > -1) {
       this.dataSet = [...this.dataSet.splice(0, idx), ...this.dataSet.splice(idx + 1)];
     }
   }
-
   reloadProperties() {
     axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/v1/private/property/dict').then(_ref3 => {
       let {
@@ -4633,18 +4607,14 @@ class CategoryPropertyEditorState {
       });
     });
   }
-
   constructor() {
     (0,mobx__WEBPACK_IMPORTED_MODULE_1__.makeAutoObservable)(this);
   }
-
   init() {
     this.reloadCategories();
     this.reloadProperties();
   }
-
 }
-
 const categoryPropertyEditorStateInstance = new CategoryPropertyEditorState();
 (0,mobx__WEBPACK_IMPORTED_MODULE_1__.observe)(categoryPropertyEditorStateInstance, change => {
   if (change.name === 'filters') {
@@ -4670,7 +4640,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
-
 const CreateCategoryPageForm = _ref => {
   let {
     categoryId,
@@ -4680,7 +4649,6 @@ const CreateCategoryPageForm = _ref => {
   const [name, setName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [alias, setAlias] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [isAwait, setIsAwait] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
   const onSubmit = e => {
     e.preventDefault();
     setIsAwait(true);
@@ -4699,7 +4667,6 @@ const CreateCategoryPageForm = _ref => {
       onSuccess();
     }).finally(() => setIsAwait(false));
   };
-
   const getForm = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     onSubmit: onSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -4725,16 +4692,13 @@ const CreateCategoryPageForm = _ref => {
     disabled: isAwait,
     className: 'btn btn-outline-success'
   }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C")));
-
   const getFinishScreen = () => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: 'text-center'
     }, "\u0413\u043E\u0442\u043E\u0432\u043E!");
   };
-
   return id ? getFinishScreen() : getForm();
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateCategoryPageForm);
 
 /***/ }),
@@ -4756,7 +4720,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const CreateCategoryPageModal = _ref => {
   let {
     categoryId,
@@ -4764,11 +4727,8 @@ const CreateCategoryPageModal = _ref => {
     onSuccess
   } = _ref;
   const [visible, setVisible] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
   const close = () => setVisible(false);
-
   const show = () => setVisible(true);
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, triggerComponent(show), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], {
     show: visible,
     onHide: close
@@ -4779,7 +4739,6 @@ const CreateCategoryPageModal = _ref => {
     onSuccess: onSuccess
   }))));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateCategoryPageModal);
 
 /***/ }),
@@ -4798,7 +4757,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
-
 
 
 
@@ -4828,7 +4786,6 @@ const CreateCategoryPropertyForm = _ref => {
     value: 'bool',
     label: 'Логический'
   }];
-
   const onSubmit = e => {
     e.preventDefault();
     axios__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/v1/private/category-property/create', {
@@ -4848,7 +4805,6 @@ const CreateCategoryPropertyForm = _ref => {
       onSuccess(id);
     });
   };
-
   const resetForm = () => {
     setId(null);
     setCategory(null);
@@ -4857,7 +4813,6 @@ const CreateCategoryPropertyForm = _ref => {
     setType(null);
     setUnit('');
   };
-
   const getForm = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     onSubmit: onSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -4901,7 +4856,6 @@ const CreateCategoryPropertyForm = _ref => {
     className: "btn btn-outline-success",
     type: "submit"
   }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C")));
-
   const getFinishScreen = () => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "text-center"
@@ -4912,10 +4866,8 @@ const CreateCategoryPropertyForm = _ref => {
       onClick: resetForm
     }, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0435\u0449\u0435")));
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, id ? getFinishScreen() : getForm());
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateCategoryPropertyForm);
 
 /***/ }),
@@ -4937,7 +4889,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const CreateCategoryPropertyModal = _ref => {
   let {
     btnClasses = '',
@@ -4946,11 +4897,8 @@ const CreateCategoryPropertyModal = _ref => {
     properties = []
   } = _ref;
   const [visible, setVisible] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
   const close = () => setVisible(false);
-
   const show = () => setVisible(true);
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     className: btnClasses,
     onClick: show
@@ -4967,7 +4915,6 @@ const CreateCategoryPropertyModal = _ref => {
     onSuccess: onSuccess
   }))));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateCategoryPropertyModal);
 
 /***/ }),
@@ -4985,7 +4932,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
-
 const DataTable = _ref => {
   let {
     getHead = () => null,
@@ -4997,7 +4943,6 @@ const DataTable = _ref => {
     className: "table table-borderless"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, getHead())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, getBody())));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DataTable);
 
 /***/ }),
@@ -5015,25 +4960,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
-
 const ImageSlider = _ref => {
   let {
     images
   } = _ref;
   const [currentIndex, setCurrentIndex] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-
   const getCurrentImage = () => images.sort((a, b) => {
     if (a.sortOrder < b.sortOrder) {
       return -1;
     }
-
     if (a.sortOrder > b.sortOrder) {
       return 1;
     }
-
     return 0;
   })[currentIndex].path;
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "fixed-frame-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -5053,7 +4993,8 @@ const ImageSlider = _ref => {
       style: {
         display: 'block',
         margin: '10px'
-      }
+      },
+      key: `sl-i-${item.id}`
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       style: {
         width: '20px',
@@ -5065,7 +5006,6 @@ const ImageSlider = _ref => {
     }));
   }))));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ImageSlider);
 
 /***/ }),
@@ -5104,7 +5044,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const CreateProductCategoryForm = _ref => {
   let {
     onSuccess,
@@ -5114,7 +5053,6 @@ const CreateProductCategoryForm = _ref => {
   const [name, setName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [parentId, setParentId] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [isAwait, setIsAwait] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
   const onSubmit = e => {
     e.preventDefault();
     setIsAwait(true);
@@ -5132,7 +5070,6 @@ const CreateProductCategoryForm = _ref => {
       onSuccess(id);
     }).finally(() => setIsAwait(false));
   };
-
   const getForm = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     onSubmit: onSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -5158,13 +5095,11 @@ const CreateProductCategoryForm = _ref => {
     disabled: isAwait,
     className: "btn btn-outline-success"
   }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C")));
-
   const resetForm = () => {
     setId(null);
     setName('');
     setParentId(null);
   };
-
   const getFinishScreen = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "text-center"
   }, "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044F \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0430!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -5173,10 +5108,8 @@ const CreateProductCategoryForm = _ref => {
     className: "btn btn-outline-info",
     onClick: resetForm
   }, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0435\u0449\u0435")));
-
   return id ? getFinishScreen() : getForm();
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateProductCategoryForm);
 
 /***/ }),
@@ -5198,7 +5131,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const CreateProductCategoryModal = _ref => {
   let {
     btnClasses = '',
@@ -5206,11 +5138,8 @@ const CreateProductCategoryModal = _ref => {
     productCategoryDict
   } = _ref;
   const [visible, setVisible] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
   const close = () => setVisible(false);
-
   const show = () => setVisible(true);
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     className: btnClasses,
     onClick: show
@@ -5226,7 +5155,6 @@ const CreateProductCategoryModal = _ref => {
     onSuccess: onSuccess
   }))));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateProductCategoryModal);
 
 /***/ }),
@@ -5246,7 +5174,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
-
 const CreateProductPageForm = _ref => {
   let {
     onSuccess = id => {},
@@ -5255,7 +5182,6 @@ const CreateProductPageForm = _ref => {
   const [id, setId] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [name, setName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [alias, setAlias] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
-
   const onSubmit = e => {
     e.preventDefault();
     axios__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/v1/private/product-page/create', {
@@ -5273,7 +5199,6 @@ const CreateProductPageForm = _ref => {
       onSuccess(id);
     });
   };
-
   const getForm = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     onSubmit: onSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -5296,16 +5221,13 @@ const CreateProductPageForm = _ref => {
     className: "btn btn-outline-success",
     type: "submit"
   }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C")));
-
   const getFinishScreen = () => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "text-center"
     }, "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0441\u043E\u0437\u0434\u0430\u043D\u0430!"));
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, id ? getFinishScreen() : getForm());
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateProductPageForm);
 
 /***/ }),
@@ -5327,7 +5249,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const CreateProductPageModal = _ref => {
   let {
     btnClasses = '',
@@ -5335,11 +5256,8 @@ const CreateProductPageModal = _ref => {
     productId
   } = _ref;
   const [visible, setVisible] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
   const close = () => setVisible(false);
-
   const show = () => setVisible(true);
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     className: btnClasses,
     onClick: show
@@ -5355,7 +5273,6 @@ const CreateProductPageModal = _ref => {
     productId: productId
   }))));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateProductPageModal);
 
 /***/ }),
@@ -5375,14 +5292,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
-
 const CreatePropertyForm = _ref => {
   let {
     onSuccess = id => {}
   } = _ref;
   const [id, setId] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [name, setName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
-
   const onSubmit = e => {
     e.preventDefault();
     axios__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/v1/private/property/create', {
@@ -5398,12 +5313,10 @@ const CreatePropertyForm = _ref => {
       onSuccess(id);
     });
   };
-
   const resetForm = () => {
     setId(null);
     setName('');
   };
-
   const getForm = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     onSubmit: onSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -5418,7 +5331,6 @@ const CreatePropertyForm = _ref => {
     className: "btn btn-outline-success",
     type: "submit"
   }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C")));
-
   const getFinishScreen = () => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "text-center"
@@ -5429,10 +5341,8 @@ const CreatePropertyForm = _ref => {
       onClick: resetForm
     }, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0435\u0449\u0435")));
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, id ? getFinishScreen() : getForm());
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreatePropertyForm);
 
 /***/ }),
@@ -5454,7 +5364,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const CreatePropertyModal = _ref => {
   let {
     btnClasses = '',
@@ -5462,11 +5371,8 @@ const CreatePropertyModal = _ref => {
     buttonCaption = 'Добавить'
   } = _ref;
   const [visible, setVisible] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
   const close = () => setVisible(false);
-
   const show = () => setVisible(true);
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     className: btnClasses,
     onClick: show
@@ -5481,7 +5387,6 @@ const CreatePropertyModal = _ref => {
     onSuccess: onSuccess
   }))));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreatePropertyModal);
 
 /***/ }),
@@ -5501,14 +5406,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
-
 const CreateVendorForm = _ref => {
   let {
     onSuccess = id => {}
   } = _ref;
   const [id, setId] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [name, setName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
-
   const onSubmit = e => {
     e.preventDefault();
     axios__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/v1/private/vendor/create', {
@@ -5524,12 +5427,10 @@ const CreateVendorForm = _ref => {
       onSuccess(id);
     });
   };
-
   const resetForm = () => {
     setId(null);
     setName('');
   };
-
   const getForm = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     onSubmit: onSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -5544,7 +5445,6 @@ const CreateVendorForm = _ref => {
     className: "btn btn-outline-success",
     type: "submit"
   }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C")));
-
   const getFinishScreen = () => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "text-center"
@@ -5555,10 +5455,8 @@ const CreateVendorForm = _ref => {
       onClick: resetForm
     }, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0435\u0449\u0435")));
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, id ? getFinishScreen() : getForm());
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateVendorForm);
 
 /***/ }),
@@ -5580,18 +5478,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const CreateVendorModal = _ref => {
   let {
     btnClasses = '',
     onSuccess = id => {}
   } = _ref;
   const [visible, setVisible] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
   const close = () => setVisible(false);
-
   const show = () => setVisible(true);
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     className: btnClasses,
     onClick: show
@@ -5606,7 +5500,6 @@ const CreateVendorModal = _ref => {
     onSuccess: onSuccess
   }))));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateVendorModal);
 
 /***/ }),
@@ -5628,7 +5521,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const UpdateWebpageModal = _ref => {
   let {
     id,
@@ -5636,11 +5528,8 @@ const UpdateWebpageModal = _ref => {
     onSuccess
   } = _ref;
   const [visible, setVisible] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
   const close = () => setVisible(false);
-
   const show = () => setVisible(true);
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, getTriggerComponent(show), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], {
     show: visible,
     onHide: close
@@ -5651,7 +5540,6 @@ const UpdateWebpageModal = _ref => {
     onSuccess: onSuccess
   }))));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UpdateWebpageModal);
 
 /***/ }),
@@ -5671,7 +5559,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
-
 const UpdateWebpageForm = _ref => {
   let {
     id,
@@ -5685,7 +5572,6 @@ const UpdateWebpageForm = _ref => {
   const [content, setContent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [alias, setAlias] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [isActive, setIsActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
   const reloadData = id => {
     setIsAwait(true);
     axios__WEBPACK_IMPORTED_MODULE_1__["default"].post(`/api/v1/private/webpage/${id}`).then(_ref2 => {
@@ -5713,11 +5599,9 @@ const UpdateWebpageForm = _ref => {
       setIsActive(isActive);
     }).finally(() => setIsAwait(false));
   };
-
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     reloadData(id);
   }, []);
-
   const onSubmit = e => {
     e.preventDefault();
     setIsAwait(true);
@@ -5734,7 +5618,6 @@ const UpdateWebpageForm = _ref => {
       onSuccess(id);
     }).finally(() => setIsAwait(false));
   };
-
   const getForm = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     onSubmit: onSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -5800,10 +5683,8 @@ const UpdateWebpageForm = _ref => {
     disabled: isAwait,
     className: "btn btn-outline-success"
   }, "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C")));
-
   return getForm();
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UpdateWebpageForm);
 
 /***/ }),
@@ -5823,7 +5704,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
-
 const CreateProductImageForm = _ref => {
   let {
     productId,
@@ -5832,7 +5712,6 @@ const CreateProductImageForm = _ref => {
   } = _ref;
   const [image, setImage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();
   const [imageId, setImageId] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
-
   const onSubmit = e => {
     e.preventDefault();
     const formData = new FormData();
@@ -5852,20 +5731,16 @@ const CreateProductImageForm = _ref => {
       const {
         id = null
       } = data;
-
       if (id) {
         setImageId(id);
       }
-
       onAfterSuccess();
     });
   };
-
   const resetModal = () => {
     setImage(null);
     setImageId(null);
   };
-
   const getForm = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     onSubmit: onSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -5881,7 +5756,6 @@ const CreateProductImageForm = _ref => {
     type: "submit",
     className: "btn btn-outline-info"
   }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C")));
-
   const getSuccessMessage = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "text-center m-b-10"
   }, "\u041A\u0430\u0440\u0442\u0438\u043D\u043A\u0430 \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0430."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -5895,10 +5769,8 @@ const CreateProductImageForm = _ref => {
     onClick: resetModal,
     className: "btn btn-outline-light"
   }, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0435\u0449\u0435")));
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, imageId ? getSuccessMessage() : getForm());
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateProductImageForm);
 
 /***/ }),
@@ -5922,18 +5794,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const CreateProductImageModal = _ref => {
   let {
     productId,
     btnClasses = ''
   } = _ref;
   const [visible, setVisible] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
   const close = () => setVisible(false);
-
   const show = () => setVisible(true);
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     className: btnClasses,
     onClick: show
@@ -5950,7 +5818,6 @@ const CreateProductImageModal = _ref => {
     onAfterSuccess: () => _product_image_editor_state__WEBPACK_IMPORTED_MODULE_2__["default"].reloadImages()
   }))));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateProductImageModal);
 
 /***/ }),
@@ -5972,7 +5839,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const CreateProductForm = _ref => {
   let {
     getVendors = () => [],
@@ -5982,7 +5848,6 @@ const CreateProductForm = _ref => {
   const [code, setCode] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [vendorId, setVendorId] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [id, setId] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
-
   const submit = e => {
     e.preventDefault();
     setIsAwait(true);
@@ -6002,13 +5867,11 @@ const CreateProductForm = _ref => {
       onSuccess(id);
     }).finally(() => setIsAwait(false));
   };
-
   const resetForm = () => {
     setCode('');
     setVendorId(null);
     setId(null);
   };
-
   const getForm = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     onSubmit: submit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -6032,7 +5895,6 @@ const CreateProductForm = _ref => {
     type: "submit",
     className: "btn btn-info"
   }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C")));
-
   const openLink = () => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "text-center"
@@ -6047,10 +5909,8 @@ const CreateProductForm = _ref => {
       className: "btn btn-outline-info"
     }, "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043A \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044E")));
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, id ? openLink() : getForm());
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateProductForm);
 
 /***/ }),
@@ -6072,7 +5932,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const CreateProductModal = _ref => {
   let {
     getVendors = () => [],
@@ -6080,11 +5939,8 @@ const CreateProductModal = _ref => {
     onSuccess = id => null
   } = _ref;
   const [visible, setVisible] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
   const close = () => setVisible(false);
-
   const show = () => setVisible(true);
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     className: btnClasses,
     onClick: show
@@ -6100,7 +5956,6 @@ const CreateProductModal = _ref => {
     onSuccess: onSuccess
   }))));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateProductModal);
 
 /***/ }),
@@ -6158,17 +6013,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 class ProductCategoryEditorState {
   productId = null;
   productCategoryId = null;
   categoryItemId = null;
   isAwait = false;
-
   constructor() {
     (0,mobx__WEBPACK_IMPORTED_MODULE_2__.makeAutoObservable)(this);
   }
-
   reloadProductCategory() {
     if (this.productId) {
       this.isAwait = true;
@@ -6188,7 +6040,6 @@ class ProductCategoryEditorState {
       }).finally(() => this.isAwait = false);
     }
   }
-
   updateCategoryItem() {
     this.isAwait = true;
     axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/v1/private/product-category-item/update', {
@@ -6196,7 +6047,6 @@ class ProductCategoryEditorState {
       productCategoryId: this.productCategoryId
     }).then(() => this.reloadProductCategory()).finally(() => this.isAwait = false);
   }
-
   removeCategoryItem() {
     this.isAwait = true;
     axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/v1/private/product-category-item/delete', {
@@ -6206,7 +6056,6 @@ class ProductCategoryEditorState {
       this.reloadProductCategory();
     }).finally(() => this.isAwait = false);
   }
-
   createCategoryItem() {
     this.isAwait = true;
     axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/v1/private/product-category-item/create', {
@@ -6214,10 +6063,8 @@ class ProductCategoryEditorState {
       categoryId: this.productCategoryId
     }).then(() => this.reloadProductCategory()).finally(() => this.isAwait = false);
   }
-
   setProductCategoryId(id) {
     this.productCategoryId = id;
-
     if (id === null) {
       if (this.categoryItemId) {
         this.removeCategoryItem();
@@ -6230,9 +6077,7 @@ class ProductCategoryEditorState {
       }
     }
   }
-
 }
-
 const productCategoryEditorStateInstance = new ProductCategoryEditorState();
 (0,mobx__WEBPACK_IMPORTED_MODULE_2__.observe)(productCategoryEditorStateInstance, change => {
   if (change.name === 'productId') {
@@ -6267,7 +6112,6 @@ const UpdateProductForm = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observ
     e.preventDefault();
     _state__WEBPACK_IMPORTED_MODULE_2__["default"].update();
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     onSubmit: onSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -6368,7 +6212,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
-
 class UpdateProductFormState {
   isAwait = false;
   id = null;
@@ -6388,7 +6231,6 @@ class UpdateProductFormState {
     'label': 'Apple'
   }];
   getVendors = () => this.vendorSelectOptions;
-
   reloadInstance(id) {
     if (id) {
       this.isAwait = true;
@@ -6403,20 +6245,16 @@ class UpdateProductFormState {
       }).finally(() => this.isAwait = false);
     }
   }
-
   update() {
     this.isAwait = true;
     axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/v1/private/product/update', this.formData).then(() => {
       this.reloadInstance(this.id);
     }).finally(() => this.isAwait = false);
   }
-
   constructor() {
     (0,mobx__WEBPACK_IMPORTED_MODULE_1__.makeAutoObservable)(this);
   }
-
 }
-
 const updateProductFormStateInstance = new UpdateProductFormState();
 (0,mobx__WEBPACK_IMPORTED_MODULE_1__.intercept)(updateProductFormStateInstance, 'id', change => {
   updateProductFormStateInstance.reloadInstance(change.newValue);
@@ -6445,19 +6283,16 @@ __webpack_require__.r(__webpack_exports__);
 const ProductImageEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)(() => {
   const [filterMode, setFilterMode] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
   const images = _state__WEBPACK_IMPORTED_MODULE_2__["default"].images;
-
   const findItem = id => {
     const idx = images.findIndex(el => el.id === id);
     return idx > -1 ? images[idx] : null;
   };
-
   const updateDeleted = (id, isDeleted) => {
     _state__WEBPACK_IMPORTED_MODULE_2__["default"].update({
       id,
       isDeleted
     });
   };
-
   const wrapItem = item => {
     const {
       id = '',
@@ -6466,18 +6301,17 @@ const ProductImageEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.obser
       path = '',
       isDeleted = false
     } = item;
-
     const onSubmit = e => {
       e.preventDefault();
       const item = findItem(id);
-      _state__WEBPACK_IMPORTED_MODULE_2__["default"].update({ ...{
+      _state__WEBPACK_IMPORTED_MODULE_2__["default"].update({
+        ...{
           id: item.id,
           description: item.description,
           sortOrder: item.sortOrder
         }
       });
     };
-
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       key: `piei_${id}`,
       style: {
@@ -6542,31 +6376,25 @@ const ProductImageEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.obser
       className: "fa fa-trash-o"
     }), "\xA0", isDeleted ? 'Восстановить' : 'Удалить')))));
   };
-
   const sortImages = images => {
     if (filterMode === 0) {
       return images.filter(el => el.isDeleted === false).sort((a, b) => {
         if (a.sortOrder === b.sortOrder) {
           return 0;
         }
-
         return a.sortOrder > b.sortOrder ? 1 : -1;
       });
     }
-
     if (filterMode === 1) {
       return images.filter(el => el.isDeleted === true);
     }
-
     return [...images.filter(el => el.isDeleted === false).sort((a, b) => {
       if (a.sortOrder === b.sortOrder) {
         return 0;
       }
-
       return a.sortOrder > b.sortOrder ? 1 : -1;
     }), ...images.filter(el => el.isDeleted === true)];
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "btn-group m-b-15"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
@@ -6599,22 +6427,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
-
 class ProductImageEditorState {
   id = null;
   isAwait = false;
   images = [];
-
   constructor() {
     (0,mobx__WEBPACK_IMPORTED_MODULE_1__.makeAutoObservable)(this);
     this.reloadImages();
   }
-
   reloadImages() {
     if (this.id === null) {
       return;
     }
-
     this.isAwait = true;
     axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(`/api/v1/private/product-images/${this.id}`).then(_ref => {
       let {
@@ -6628,15 +6452,12 @@ class ProductImageEditorState {
       this.isAwait = false;
     });
   }
-
   update(payload) {
     axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/v1/private/product-image/update', payload).finally(() => {
       this.reloadImages();
     });
   }
-
 }
-
 const productImageEditorStateInstance = new ProductImageEditorState();
 (0,mobx__WEBPACK_IMPORTED_MODULE_1__.observe)(productImageEditorStateInstance, change => {
   if (change.name === 'id') {
@@ -6664,7 +6485,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const ProductPageEditorCreateProductPageModal = _ref => {
   let {
     productId
@@ -6675,7 +6495,6 @@ const ProductPageEditorCreateProductPageModal = _ref => {
     onSuccess: () => _state__WEBPACK_IMPORTED_MODULE_2__["default"].reloadPageData()
   });
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProductPageEditorCreateProductPageModal);
 
 /***/ }),
@@ -6702,7 +6521,6 @@ const ProductPageEditorUpdateProductPageForm = (0,mobx_react_lite__WEBPACK_IMPOR
     e.preventDefault();
     _state__WEBPACK_IMPORTED_MODULE_1__["default"].update();
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     onSubmit: onSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -6778,11 +6596,9 @@ const ProductPageEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observ
   if (_state__WEBPACK_IMPORTED_MODULE_2__["default"].productId === null) {
     return null;
   }
-
   const getContent = () => _state__WEBPACK_IMPORTED_MODULE_2__["default"].dataSet === null ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_create_product_page_modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
     productId: _state__WEBPACK_IMPORTED_MODULE_2__["default"].productId
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_update_product_page_form__WEBPACK_IMPORTED_MODULE_3__["default"], null);
-
   return _state__WEBPACK_IMPORTED_MODULE_2__["default"].isAwait ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
     animation: 'border'
   }) : getContent();
@@ -6806,16 +6622,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
-
 class ProductPageEditorState {
   productId = null;
   dataSet = null;
   isAwait = false;
-
   constructor() {
     (0,mobx__WEBPACK_IMPORTED_MODULE_1__.makeAutoObservable)(this);
   }
-
   reloadPageData() {
     this.isAwait = true;
     axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(`/api/v1/private/product-page-by-product/${this.productId}`).then(_ref => {
@@ -6828,16 +6641,13 @@ class ProductPageEditorState {
       this.dataSet = payload;
     }).finally(() => this.isAwait = false);
   }
-
   update() {
     this.isAwait = true;
     axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/v1/private/product-page/update', this.dataSet).then(() => {
       this.reloadPageData();
     }).finally(() => this.isAwait = false);
   }
-
 }
-
 const productPageEditorStateInstance = new ProductPageEditorState();
 (0,mobx__WEBPACK_IMPORTED_MODULE_1__.observe)(productPageEditorStateInstance, change => {
   if (change.name === 'productId') {
@@ -6892,7 +6702,6 @@ const PropertyEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)
       onBlur: onBlur
     })));
   };
-
   const floatControl = _ref2 => {
     let {
       propertyId,
@@ -6915,7 +6724,6 @@ const PropertyEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)
       onBlur: onBlur
     })));
   };
-
   const stringControl = _ref3 => {
     let {
       propertyId,
@@ -6937,7 +6745,6 @@ const PropertyEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)
       onBlur: onBlur
     })));
   };
-
   const boolControl = _ref4 => {
     let {
       propertyId,
@@ -6962,14 +6769,12 @@ const PropertyEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)
       value: 'false'
     }, "\u041D\u0435\u0442"))));
   };
-
   const getCategories = () => [...new Set(_state__WEBPACK_IMPORTED_MODULE_2__["default"].properties.map(_ref5 => {
     let {
       groupName = ''
     } = _ref5;
     return groupName;
   }))];
-
   const renderTabs = categories => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
       defaultActiveKey: categories[0]
@@ -6982,7 +6787,6 @@ const PropertyEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)
       }, renderControls(_state__WEBPACK_IMPORTED_MODULE_2__["default"].properties.filter(el => el.groupName === cat))));
     }));
   };
-
   const renderControls = properties => properties.map(item => {
     const {
       type = '',
@@ -6990,20 +6794,18 @@ const PropertyEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)
       propertyName = '',
       unit = null
     } = item;
-
     const save = () => _state__WEBPACK_IMPORTED_MODULE_2__["default"].save({
       productId: _state__WEBPACK_IMPORTED_MODULE_2__["default"].id,
       propertyId,
       value: item.value
     });
-
     const commonProps = {
       label: `${propertyName}${unit ? ', ' + unit : ''}`,
       propertyId
     };
-
     if (type === 'int') {
-      return intControl({ ...commonProps,
+      return intControl({
+        ...commonProps,
         ...{
           value: item.value === null ? '' : `${item.value}`,
           onChange: e => {
@@ -7021,7 +6823,8 @@ const PropertyEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)
         }
       });
     } else if (type === 'float') {
-      return floatControl({ ...commonProps,
+      return floatControl({
+        ...commonProps,
         ...{
           value: item.value === null ? '' : `${item.value}`,
           onChange: e => {
@@ -7039,7 +6842,8 @@ const PropertyEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)
         }
       });
     } else if (type === 'string') {
-      return stringControl({ ...commonProps,
+      return stringControl({
+        ...commonProps,
         ...{
           value: item.value === null ? '' : `${item.value}`,
           onChange: e => item.value = `${e.target.value}`,
@@ -7047,7 +6851,8 @@ const PropertyEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)
         }
       });
     } else if (type === 'bool') {
-      return boolControl({ ...commonProps,
+      return boolControl({
+        ...commonProps,
         ...{
           value: item.value === null ? 'nul' : `${item.value}`,
           onChange: e => {
@@ -7058,7 +6863,6 @@ const PropertyEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)
             } else if (e.target.value === 'false') {
               item.value = false;
             }
-
             save();
           }
         }
@@ -7067,7 +6871,6 @@ const PropertyEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)
       return null;
     }
   });
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, _state__WEBPACK_IMPORTED_MODULE_2__["default"].isAwait ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
     animation: 'border'
   }) : renderTabs(getCategories()));
@@ -7091,16 +6894,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
-
 class PropertyEditorState {
   id = null;
   isAwait = false;
   properties = [];
-
   constructor() {
     (0,mobx__WEBPACK_IMPORTED_MODULE_1__.makeAutoObservable)(this);
   }
-
   reloadProperties() {
     if (this.id) {
       this.isAwait = true;
@@ -7115,7 +6915,6 @@ class PropertyEditorState {
       }).finally(() => this.isAwait = false);
     }
   }
-
   save(_ref2) {
     let {
       productId = 0,
@@ -7128,9 +6927,7 @@ class PropertyEditorState {
       value
     });
   }
-
 }
-
 const propertyEditorStateInstance = new PropertyEditorState();
 (0,mobx__WEBPACK_IMPORTED_MODULE_1__.observe)(propertyEditorStateInstance, change => {
   if (change.name === 'id') {
@@ -7180,7 +6977,6 @@ const ProductCard = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)(()
     const {
       id = null
     } = (0,url_params_parser__WEBPACK_IMPORTED_MODULE_4__.UrlParser)(document.location.href).queryParams;
-
     if (id) {
       _state__WEBPACK_IMPORTED_MODULE_5__["default"].id = parseInt(id);
     }
@@ -7242,16 +7038,13 @@ const ProductCard = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)(()
     className: "card-body"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_product_page_editor__WEBPACK_IMPORTED_MODULE_10__["default"], null))))));
 });
-
 const renderProductCard = () => {
   const root = document.getElementById('product-card-root');
-
   if (root !== null) {
     _state__WEBPACK_IMPORTED_MODULE_5__["default"].init();
     react_dom__WEBPACK_IMPORTED_MODULE_2__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProductCard, null), root);
   }
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (renderProductCard);
 
 /***/ }),
@@ -7281,7 +7074,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 class ProductCardState {
   id = null;
   vendorsDict = [{
@@ -7293,11 +7085,9 @@ class ProductCardState {
   }];
   productCategories = [];
   getVendor = () => this.vendorsDict;
-
   constructor() {
     (0,mobx__WEBPACK_IMPORTED_MODULE_6__.makeAutoObservable)(this);
   }
-
   reloadVendorsDict() {
     axios__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/v1/private/vendor/dict').then(_ref => {
       let {
@@ -7314,7 +7104,6 @@ class ProductCardState {
       });
     });
   }
-
   reloadProductCategories() {
     axios__WEBPACK_IMPORTED_MODULE_1__["default"].get('/api/v1/private/product-category/dict').then(_ref2 => {
       let {
@@ -7331,18 +7120,13 @@ class ProductCardState {
       });
     });
   }
-
   init() {
     this.reloadVendorsDict();
     this.reloadProductCategories();
   }
-
 }
-
 const productCardStateInstance = new ProductCardState();
-
 _components_product_editor_components_update_product_form_state__WEBPACK_IMPORTED_MODULE_0__["default"].getVendors = () => productCardStateInstance.getVendor();
-
 (0,mobx__WEBPACK_IMPORTED_MODULE_6__.observe)(productCardStateInstance, change => {
   if (change.name === 'id') {
     _components_product_editor_components_update_product_form_state__WEBPACK_IMPORTED_MODULE_0__["default"].id = productCardStateInstance.id;
@@ -7373,24 +7157,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const ProductCategoryEditorCreateCategoryPageModal = _ref => {
   let {
     categoryId
   } = _ref;
-
   const triggerComponent = show => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     className: 'btn btn-outline-light',
     onClick: show
   }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C");
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_common_category_page_create_category_page_modal__WEBPACK_IMPORTED_MODULE_1__["default"], {
     categoryId: categoryId,
     triggerComponent: triggerComponent,
     onSuccess: () => _state__WEBPACK_IMPORTED_MODULE_2__["default"].reloadProductCategories()
   });
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProductCategoryEditorCreateCategoryPageModal);
 
 /***/ }),
@@ -7412,7 +7192,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const ProductCategoryEditorCreateProductCategoryModal = _ref => {
   let {
     productCategoryDict
@@ -7423,7 +7202,6 @@ const ProductCategoryEditorCreateProductCategoryModal = _ref => {
     onSuccess: () => _state__WEBPACK_IMPORTED_MODULE_2__["default"].reloadProductCategories()
   });
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProductCategoryEditorCreateProductCategoryModal);
 
 /***/ }),
@@ -7445,29 +7223,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const ProductCategoryTable = _ref => {
   let {
     dataSet = [],
     productCategoryDict = []
   } = _ref;
-
   const getHead = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "ID"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u0420\u043E\u0434\u0438\u0442\u0435\u043B\u044C"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044F"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u0410\u043A\u0442\u0438\u0432\u043D\u043E"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u044F"));
-
   const wrapRow = row => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_product_category_table_row__WEBPACK_IMPORTED_MODULE_2__["default"], {
     row: row,
     key: `pc${row.id}`,
     productCategoryDict: productCategoryDict
   });
-
   const getBody = () => dataSet.map(row => wrapRow(row));
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_common_data_table__WEBPACK_IMPORTED_MODULE_1__["default"], {
     getHead: getHead,
     getBody: getBody
   });
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProductCategoryTable);
 
 /***/ }),
@@ -7489,13 +7261,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const UploadProductCategoryImageModal = _ref => {
   let {
     categoryId
   } = _ref;
   const [image, setImage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();
-
   const onSubmit = e => {
     e.preventDefault();
     const formData = new FormData();
@@ -7512,7 +7282,6 @@ const UploadProductCategoryImageModal = _ref => {
       _state__WEBPACK_IMPORTED_MODULE_2__["default"].reloadProductCategories();
     });
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     onSubmit: onSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -7531,7 +7300,6 @@ const UploadProductCategoryImageModal = _ref => {
     className: "btn btn-outline-info mb-2"
   }, "\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C"))));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UploadProductCategoryImageModal);
 
 /***/ }),
@@ -7559,7 +7327,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const ProductCategoryTableRow = _ref => {
   let {
     row = {
@@ -7580,17 +7347,14 @@ const ProductCategoryTableRow = _ref => {
   const [name, setName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();
   const [parentId, setParentId] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [isActive, setIsActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
   const setInitialValues = () => {
     setName(row.name ?? '');
     setParentId(row.parentId ?? null);
     setIsActive(row.isActive ?? false);
   };
-
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     setInitialValues();
   }, []);
-
   const save = () => {
     setIsAwait(true);
     axios__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/v1/private/product-category/update', {
@@ -7606,7 +7370,6 @@ const ProductCategoryTableRow = _ref => {
       });
     }).catch(() => setInitialValues()).finally(() => setIsAwait(false));
   };
-
   const getParentSelectComponent = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_select__WEBPACK_IMPORTED_MODULE_5__["default"], {
     options: productCategoryDict,
     isDisabled: isAwait,
@@ -7615,7 +7378,6 @@ const ProductCategoryTableRow = _ref => {
     value: parentId ? productCategoryDict.find(el => el.value == parentId) : null,
     onChange: v => setParentId(v ? parseInt(v.value) : v)
   });
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, `${id ?? ''}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, getParentSelectComponent()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
     type: "text",
     className: "form-control",
@@ -7650,7 +7412,6 @@ const ProductCategoryTableRow = _ref => {
     className: "fa fa-save"
   })))));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProductCategoryTableRow);
 
 /***/ }),
@@ -7672,26 +7433,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const ProductCategoryEditorUpdateCategoryPageModal = _ref => {
   let {
     id
   } = _ref;
-
   const triggerComponent = show => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       className: "btn btn-outline-light",
       onClick: () => show()
     }, "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C");
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_common_webpage_update_webpage_modal__WEBPACK_IMPORTED_MODULE_1__["default"], {
     id: id,
     getTriggerComponent: triggerComponent,
     onSuccess: () => _state__WEBPACK_IMPORTED_MODULE_2__["default"].reloadProductCategories()
   });
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProductCategoryEditorUpdateCategoryPageModal);
 
 /***/ }),
@@ -7751,16 +7508,13 @@ const ProductCategoryEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_3__.ob
     productCategoryDict: _state__WEBPACK_IMPORTED_MODULE_2__["default"].productCategoryDict
   }))))));
 });
-
 const renderProductCategoryEditor = () => {
   const root = document.getElementById('product__category__editor__root');
-
   if (root) {
     _state__WEBPACK_IMPORTED_MODULE_2__["default"].init();
     react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProductCategoryEditor, null), root);
   }
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (renderProductCategoryEditor);
 
 /***/ }),
@@ -7780,12 +7534,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
-
 class ProductCategoryEditorState {
   productCategoryDict = [];
   productCategories = [];
   isAwait = false;
-
   reloadProductCategories() {
     this.isAwait = true;
     axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/v1/private/product-category/list').then(_ref => {
@@ -7799,7 +7551,6 @@ class ProductCategoryEditorState {
       this.productCategories = payload;
     }).finally(() => this.isAwait = false);
   }
-
   reloadProductCategoryDict() {
     axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/v1/private/product-category/dict').then(_ref2 => {
       let {
@@ -7816,28 +7567,22 @@ class ProductCategoryEditorState {
       });
     });
   }
-
   updateDsRow(id, rowData) {
     const idx = this.productCategories.findIndex(el => el.id == id);
-
     if (idx > -1) {
       this.productCategories[idx].name = rowData.name;
       this.productCategories[idx].parentId = rowData.parentId;
       this.productCategories[idx].isActive = rowData.isActive;
     }
   }
-
   init() {
     this.reloadProductCategoryDict();
     this.reloadProductCategories();
   }
-
   constructor() {
     (0,mobx__WEBPACK_IMPORTED_MODULE_1__.makeAutoObservable)(this);
   }
-
 }
-
 const productCategoryEditorStateInstance = new ProductCategoryEditorState();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (productCategoryEditorStateInstance);
 
@@ -7860,7 +7605,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const CreateProductModalForProductList = () => {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_product_card_components_create_product_modal__WEBPACK_IMPORTED_MODULE_1__["default"], {
     getVendors: () => _state__WEBPACK_IMPORTED_MODULE_2__["default"].vendors,
@@ -7868,7 +7612,6 @@ const CreateProductModalForProductList = () => {
     onSuccess: () => _state__WEBPACK_IMPORTED_MODULE_2__["default"].reloadProducts()
   });
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateProductModalForProductList);
 
 /***/ }),
@@ -7915,7 +7658,8 @@ const ProductList = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)(()
     animation: 'border'
   })) : _state__WEBPACK_IMPORTED_MODULE_2__["default"].products.map(item => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: "col-12 col-md-6 mt-4"
+      className: "col-12 col-md-6 mt-4",
+      key: `pi-${item.id}`
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "product-list__product-card-substrate"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -7930,12 +7674,33 @@ const ProductList = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)(()
       className: "small"
     }, item.productCategory ? item.productCategory.name : '')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
       className: "h4"
-    }, `${item.name}`)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    }, `${item.name}`)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between'
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+      className: "b"
+    }, "\u0410\u0440\u0442\u0438\u043A\u0443\u043B")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, `${item.code}`)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between'
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+      className: "b"
+    }, "\u0426\u0435\u043D\u0430")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, `${item.price}`)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between'
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+      className: "b"
+    }, "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, `${item.count}`)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
       href: `/control-panel/product-card?id=${item.id}`,
       target: '_blank'
     }, "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C"))))));
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "col-12 col-md-3"
+    className: "col-12 col-md-3 mt-4"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "card m-b-30"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -7958,16 +7723,13 @@ const ProductList = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)(()
     disabled: _state__WEBPACK_IMPORTED_MODULE_2__["default"].isAwait
   })))));
 });
-
 const renderProductList = () => {
   const root = document.getElementById('product-list-root');
-
   if (root !== null) {
     _state__WEBPACK_IMPORTED_MODULE_2__["default"].init();
     react_dom__WEBPACK_IMPORTED_MODULE_3__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProductList, null), root);
   }
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (renderProductList);
 
 /***/ }),
@@ -7987,7 +7749,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
-
 class ProductListState {
   isAwait = false;
   products = [];
@@ -7996,7 +7757,6 @@ class ProductListState {
   filters = {
     categoryId: null
   };
-
   reloadProducts() {
     this.isAwait = true;
     axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/v1/private/products', {
@@ -8013,7 +7773,6 @@ class ProductListState {
       this.isAwait = false;
     });
   }
-
   reloadVendors() {
     axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/v1/private/vendor/dict').then(_ref2 => {
       let {
@@ -8030,7 +7789,6 @@ class ProductListState {
       });
     });
   }
-
   reloadProductCategories() {
     axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/v1/private/product-category/dict').then(_ref3 => {
       let {
@@ -8047,26 +7805,22 @@ class ProductListState {
       });
     });
   }
-
   setFilterValue(key, value) {
-    const filters = { ...this.filters
+    const filters = {
+      ...this.filters
     };
     filters[key] = value;
     this.filters = filters;
   }
-
   constructor() {
     (0,mobx__WEBPACK_IMPORTED_MODULE_1__.makeAutoObservable)(this);
   }
-
   init() {
     this.reloadVendors();
     this.reloadProducts();
     this.reloadProductCategories();
   }
-
 }
-
 const productListStateInstance = new ProductListState();
 (0,mobx__WEBPACK_IMPORTED_MODULE_1__.observe)(productListStateInstance, change => {
   if (change.name === 'filters') {
@@ -8094,14 +7848,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const PropertyEditorCreatePropertyModal = () => {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_common_property_create_property_modal__WEBPACK_IMPORTED_MODULE_1__["default"], {
     btnClasses: 'btn btn-outline-success',
     onSuccess: () => _state__WEBPACK_IMPORTED_MODULE_2__["default"].reloadDataSet()
   });
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PropertyEditorCreatePropertyModal);
 
 /***/ }),
@@ -8123,27 +7875,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const PropertyTable = _ref => {
   let {
     dataSet = []
   } = _ref;
-
   const getHead = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "ID"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u0418\u043C\u044F"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u044F"));
-
   const wrapRow = row => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_property_table_row__WEBPACK_IMPORTED_MODULE_2__["default"], {
     key: `p${row.id}`,
     row: row
   });
-
   const getBody = () => dataSet.map(row => wrapRow(row));
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_common_data_table__WEBPACK_IMPORTED_MODULE_1__["default"], {
     getHead: getHead,
     getBody: getBody
   });
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PropertyTable);
 
 /***/ }),
@@ -8165,7 +7911,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const PropertyTableRow = _ref => {
   let {
     row = {
@@ -8180,7 +7925,6 @@ const PropertyTableRow = _ref => {
   } = row;
   const [name, setName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(row.name);
   const [isAwait, setIsAwait] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
   const save = () => {
     setIsAwait(true);
     axios__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/v1/private/property/update', {
@@ -8190,7 +7934,6 @@ const PropertyTableRow = _ref => {
       setName(row.name);
     }).finally(() => setIsAwait(false));
   };
-
   const remove = () => {
     setIsAwait(true);
     axios__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/v1/private/property/remove', {
@@ -8199,7 +7942,6 @@ const PropertyTableRow = _ref => {
       _state__WEBPACK_IMPORTED_MODULE_2__["default"].removeDsItem(id);
     }).finally(() => setIsAwait(false));
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, `${id}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
     disabled: isAwait,
     className: "form-control",
@@ -8221,7 +7963,6 @@ const PropertyTableRow = _ref => {
     className: "fa fa-trash"
   })))));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PropertyTableRow);
 
 /***/ }),
@@ -8278,16 +8019,13 @@ const PropertyEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)
     dataSet: _state__WEBPACK_IMPORTED_MODULE_3__["default"].dataSet
   }))))));
 });
-
 const renderPropertyEditor = () => {
   const root = document.getElementById('property-editor-root');
-
   if (root !== null) {
     _state__WEBPACK_IMPORTED_MODULE_3__["default"].init();
     react_dom__WEBPACK_IMPORTED_MODULE_2__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(PropertyEditor, null), root);
   }
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (renderPropertyEditor);
 
 /***/ }),
@@ -8307,11 +8045,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
-
 class PropertyEditorState {
   isAwait = false;
   dataSet = [];
-
   reloadDataSet() {
     this.isAwait = true;
     axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/v1/private/property/list').then(_ref => {
@@ -8326,25 +8062,19 @@ class PropertyEditorState {
       this.isAwait = false;
     });
   }
-
   removeDsItem(id) {
     const idx = this.dataSet.findIndex(el => el.id == id);
-
     if (idx > -1) {
       this.dataSet = [...this.dataSet.splice(0, idx), ...this.dataSet.splice(idx + 1)];
     }
   }
-
   constructor() {
     (0,mobx__WEBPACK_IMPORTED_MODULE_1__.makeAutoObservable)(this);
   }
-
   init() {
     this.reloadDataSet();
   }
-
 }
-
 const propertyEditorStateInstance = new PropertyEditorState();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (propertyEditorStateInstance);
 
@@ -8367,14 +8097,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const VendorEditorCreateVendorModal = () => {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_common_vendor_create_vendor_modal__WEBPACK_IMPORTED_MODULE_1__["default"], {
     btnClasses: 'btn btn-outline-success',
     onSuccess: () => _state__WEBPACK_IMPORTED_MODULE_2__["default"].reloadDataSet()
   });
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VendorEditorCreateVendorModal);
 
 /***/ }),
@@ -8396,27 +8124,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const VendorTable = _ref => {
   let {
     dataSet = []
   } = _ref;
-
   const getHead = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "ID"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u0418\u043C\u044F"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u044F"));
-
   const wrapRow = row => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_vendor_table_row__WEBPACK_IMPORTED_MODULE_2__["default"], {
     key: `vr-${row.id}`,
     row: row
   });
-
   const getBody = () => dataSet.map(row => wrapRow(row));
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_common_data_table__WEBPACK_IMPORTED_MODULE_1__["default"], {
     getHead: getHead,
     getBody: getBody
   });
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VendorTable);
 
 /***/ }),
@@ -8438,7 +8160,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const VendorTableRow = _ref => {
   let {
     row = {
@@ -8451,7 +8172,6 @@ const VendorTableRow = _ref => {
   } = row;
   const [name, setName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(row.name);
   const [isAwait, setIsAwait] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
   const save = () => {
     setIsAwait(true);
     axios__WEBPACK_IMPORTED_MODULE_2__["default"].post('/api/v1/private/vendor/update', {
@@ -8461,7 +8181,6 @@ const VendorTableRow = _ref => {
       setName(row.name);
     }).finally(() => setIsAwait(false));
   };
-
   const remove = () => {
     setIsAwait(true);
     axios__WEBPACK_IMPORTED_MODULE_2__["default"].post('/api/v1/private/vendor/remove', {
@@ -8470,7 +8189,6 @@ const VendorTableRow = _ref => {
       _state__WEBPACK_IMPORTED_MODULE_1__["default"].removeDsItem(id);
     }).finally(() => setIsAwait(false));
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, `${id}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
     disabled: isAwait,
     className: "form-control",
@@ -8492,7 +8210,6 @@ const VendorTableRow = _ref => {
     className: "fa fa-trash"
   })))));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VendorTableRow);
 
 /***/ }),
@@ -8549,16 +8266,13 @@ const VendorEditor = (0,mobx_react_lite__WEBPACK_IMPORTED_MODULE_1__.observer)((
     dataSet: _state__WEBPACK_IMPORTED_MODULE_5__["default"].dataSet
   }))))));
 });
-
 const renderVendorEditor = () => {
   const root = document.getElementById('vendor-editor-root');
-
   if (root !== null) {
     _state__WEBPACK_IMPORTED_MODULE_5__["default"].init();
     react_dom__WEBPACK_IMPORTED_MODULE_2__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(VendorEditor, null), root);
   }
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (renderVendorEditor);
 
 /***/ }),
@@ -8578,7 +8292,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
-
 class VendorEditorState {
   dataSet = [];
   isAwait = false;
@@ -8596,25 +8309,19 @@ class VendorEditorState {
       this.isAwait = false;
     });
   };
-
   constructor() {
     (0,mobx__WEBPACK_IMPORTED_MODULE_1__.makeAutoObservable)(this);
   }
-
   init() {
     this.reloadDataSet();
   }
-
   removeDsItem(id) {
     const idx = this.dataSet.findIndex(el => el.id == id);
-
     if (idx > -1) {
       this.dataSet = [...this.dataSet.splice(0, idx), ...this.dataSet.splice(idx + 1)];
     }
   }
-
 }
-
 const vendorEditorStateInstance = new VendorEditorState();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (vendorEditorStateInstance);
 

@@ -4,9 +4,9 @@ namespace App\Application\Actions\Product;
 
 use App\Entity\ProductCategoryItem;
 use App\Repository\CategoryWebpageRepository;
+use App\Repository\ProductCategoryItemRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ProductWebpageRepository;
-use App\Repository\WebpageRepository;
 
 class FilterProductsAction
 {
@@ -18,16 +18,20 @@ class FilterProductsAction
 
     private CategoryWebpageRepository $categoryWebpageRepository;
 
+    private ProductCategoryItemRepository $productCategoryItemRepository;
+
     public function __construct(
         ProductRepository $productRepository,
         FilterByIndexAction $filterByIndexAction,
         ProductWebpageRepository $productWebpageRepository,
-        CategoryWebpageRepository $categoryWebpageRepository
+        CategoryWebpageRepository $categoryWebpageRepository,
+        ProductCategoryItemRepository $productCategoryItemRepository
     ) {
         $this->productRepository = $productRepository;
         $this->filterByIndexAction = $filterByIndexAction;
         $this->productWebpageRepository = $productWebpageRepository;
         $this->categoryWebpageRepository = $categoryWebpageRepository;
+        $this->productCategoryItemRepository = $productCategoryItemRepository;
     }
 
     public function execute(array $filters): array
@@ -37,9 +41,7 @@ class FilterProductsAction
         if (isset($filters['categoryId']) && is_int($filters['categoryId'])) {
             $resultSet = array_intersect(
                 $resultSet,
-                $this->filterByIndexAction->execute([
-                    ['term' => ['category.id' => $filters['categoryId']]]
-                ])
+                $this->productCategoryItemRepository->filterByCategories([$filters['categoryId']])
             );
         }
 

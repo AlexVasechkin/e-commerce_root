@@ -53,4 +53,24 @@ class ProductCategoryItemRepository extends ServiceEntityRepository
 
         $this->messageBus->dispatch(new IndexProductMessage($productId));
     }
+
+    public function filterByCategories(array $categoryIdList): array
+    {
+        if ($categoryIdList === []) {
+            return [];
+        }
+
+        $query = implode(PHP_EOL, [
+            'select distinct',
+            '   t.product_id as id',
+            '  from product_category_item as t',
+            sprintf('where t.category_id in (%s)', implode(',', array_unique($categoryIdList))),
+            ';'
+        ]);
+
+        return $this->getEntityManager()->getConnection()
+            ->executeQuery($query)
+            ->fetchFirstColumn()
+        ;
+    }
 }
