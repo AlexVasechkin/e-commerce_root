@@ -28,11 +28,12 @@ class ProductRepository extends ServiceEntityRepository
         $this->messageBus = $messageBus;
     }
 
-    public function save(Product $product): void
+    public function save(Product $product): Product
     {
         $this->getEntityManager()->persist($product);
         $this->getEntityManager()->flush();
         $this->messageBus->dispatch(new IndexProductMessage($product->getId()));
+        return $product;
     }
 
     public function create(Product $product): Product

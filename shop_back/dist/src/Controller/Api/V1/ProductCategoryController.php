@@ -255,4 +255,25 @@ class ProductCategoryController extends AbstractController
 
         return new BinaryFileResponse($filePath);
     }
+
+    /**
+     * @Route("/api/v1/public/product-category", methods={"POST"})
+     */
+    public function getCategoryPageData(
+        Request $httpRequest,
+        CategoryWebpageRepository $categoryWebpageRepository
+    ) {
+        $alias = $httpRequest->toArray()['alias'] ?? '';
+
+        $categoryWebpage = $categoryWebpageRepository->findCategoryWebpageByAlias($alias);
+
+        return $this->json([
+            'payload' => [
+                'id' => $categoryWebpage->getWebpage()->getId(),
+                'pagetitle' => $categoryWebpage->getWebpage()->getPagetitle(),
+                'description' => $categoryWebpage->getWebpage()->getDescription(),
+                'headline' => $categoryWebpage->getWebpage()->getHeadline()
+            ]
+        ]);
+    }
 }

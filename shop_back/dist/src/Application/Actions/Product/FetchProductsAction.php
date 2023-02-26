@@ -3,6 +3,9 @@
 namespace App\Application\Actions\Product;
 
 use App\Entity\Product;
+use App\Entity\ProductCategory;
+use App\Entity\ProductCategoryItem;
+use App\Entity\Vendor;
 use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductImageRepository;
 use App\Repository\ProductRepository;
@@ -69,6 +72,7 @@ class FetchProductsAction
 
         return array_map(function (Product $product) use ($images, $vendors, $productCategories) {
             $pci = $product->getProductCategoryItems()->first();
+
             return [
                 'id' => $product->getId(),
                 'code' => $product->getCode(),
@@ -76,8 +80,15 @@ class FetchProductsAction
                 'price' => $product->getPrice() ?? 0,
                 'count' => $product->getCount() ?? 0,
                 'images' => $images[$product->getId()] ?? [],
-                'vendor' => $vendors[$product->getVendor()->getId()] ?? [],
-                'productCategory' => $productCategories[$pci->getCategory()->getId()] ?? [],
+                'vendor' => ($product->getVendor() instanceof Vendor)
+                    ? $vendors[$product->getVendor()->getId()]
+                    : [],
+                'productCategory' => (($pci instanceof ProductCategoryItem) && ($pci->getCategory() instanceof ProductCategory))
+                    ? $productCategories[$pci->getCategory()->getId()]
+                    : [
+                        'id' => '',
+                        'name' => ''
+                    ],
             ];
         }, $this->productRepository->findBy(['id' => $idList]));
     }

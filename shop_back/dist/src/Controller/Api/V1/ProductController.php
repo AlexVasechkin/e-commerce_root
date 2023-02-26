@@ -3,22 +3,16 @@
 namespace App\Controller\Api\V1;
 
 use App\Application\Actions\FindProductsAction;
-use App\Application\Actions\Product\Elasticsearch\CreateElasticsearchProductAction;
-use App\Application\Actions\Product\Elasticsearch\DTO\UpdateElasticsearchProductRequest;
-use App\Application\Actions\Product\Elasticsearch\UpdateElasticsearchProductAction;
 use App\Entity\Product;
-use App\Entity\Vendor;
+use App\Entity\ProductCategoryItem;
+use App\Repository\ProductCategoryItemRepository;
 use App\Repository\ProductCategoryRepository;
-use App\Repository\ProductImageRepository;
 use App\Repository\ProductRepository;
 use App\Repository\VendorRepository;
-use Avn\Paginator\Paginator;
-use Avn\Paginator\PaginatorRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ProductController extends AbstractController
 {
@@ -58,11 +52,13 @@ class ProductController extends AbstractController
     public function create(
         Request $httpRequest,
         ProductRepository $productRepository,
-        VendorRepository $vendorRepository
+        VendorRepository $vendorRepository,
+        ProductCategoryItemRepository $productCategoryItemRepository,
+        ProductCategoryRepository $productCategoryRepository
     ) {
         $payload = $httpRequest->toArray();
 
-        $product = $productRepository->create(
+        $product = $productRepository->save(
             (new Product())
                 ->setCode($payload['code'])
                 ->setVendor($vendorRepository->findOneBy(['id' => $payload['vendorId']]))
@@ -74,6 +70,22 @@ class ProductController extends AbstractController
                 ->setCount(0)
                 ->setPrice(0)
         );
+
+        $productCategoryId = $payload['productCategoryId'] ?? null;
+
+        if ($productCategoryId) {
+            $productCategory = $productCategoryRepository->findOneBy(['id' => $productCategoryId]);
+        } else {
+            $productCategory = $productCategoryRepository->findOneBy(['name' => 'товары']);
+        }
+
+        $productCategoryItemRepository->save(
+            (new ProductCategoryItem())
+                ->setProduct($product)
+                ->setCategory($productCategory)
+        );
+
+        $productRepository->save($product);
 
         return $this->json([
             'id' => $product->getId()
