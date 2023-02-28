@@ -33,6 +33,7 @@ services:
 
   shop_elasticsearch:
     container_name: shop_elasticsearch
+    restart: unless-stopped
     image: elasticsearch:8.5.2
     environment:
       - xpack.security.enabled=false

@@ -12,6 +12,6 @@ class HomeController extends AbstractController
      */
     public function home()
     {
-        return $this->render('client/catalog.html.twig', []);
+        return $this->redirectToRoute('control_panel__login');
     }
 }
