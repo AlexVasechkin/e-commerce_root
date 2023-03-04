@@ -66,6 +66,11 @@ class ProductCategory
      */
     private $picture;
 
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    private $nameSingle;
+
     public function __construct()
     {
         $this->productCategories = new ArrayCollection();
@@ -258,6 +263,18 @@ class ProductCategory
     public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
+        return $this;
+    }
+
+    public function getNameSingle(): ?string
+    {
+        return $this->nameSingle;
+    }
+
+    public function setNameSingle(?string $nameSingle): self
+    {
+        $this->nameSingle = $nameSingle;
+
         return $this;
     }
 }

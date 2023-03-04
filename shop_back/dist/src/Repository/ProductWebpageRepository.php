@@ -46,7 +46,7 @@ class ProductWebpageRepository extends ServiceEntityRepository
             "     pw.product_id as id",
             "  from product_webpage as pw",
             "  inner join webpage as w on w.id =pw.webpage_id",
-            sprintf("          and w.is_active = %s", $activity),
+            sprintf("          and w.is_active = %s", $activity ? 'true' : 'false'),
             ";",
         ]);
 

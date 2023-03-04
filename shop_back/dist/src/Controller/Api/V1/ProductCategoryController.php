@@ -40,6 +40,7 @@ class ProductCategoryController extends AbstractController
             'id' => $entity->getId(),
             'parentId' => $entity->getParent() ? $entity->getParent()->getId() : null,
             'name' => $entity->getName(),
+            'nameSingle' => $entity->getName(),
             'isActive' => $entity->isActive()
         ];
     }
@@ -55,6 +56,7 @@ class ProductCategoryController extends AbstractController
 
         $pc = (new ProductCategory())
             ->setName($requestParams['name'] ?? null)
+            ->setNameSingle($requestParams['nameSingle'] ?? null)
             ->setIsActive(true)
         ;
 
@@ -83,6 +85,7 @@ class ProductCategoryController extends AbstractController
             'select',
             '     pc.id          as id',
             '    ,pc.name        as name',
+            '    ,pc.name_single as name_single',
             '    ,pc.is_active   as is_active',
             '    ,pc.picture     as picture',
             '    ,p.id           as parent_id',
@@ -103,6 +106,7 @@ class ProductCategoryController extends AbstractController
                 return [
                     'id' => $item['id'],
                     'name' => $item['name'],
+                    'nameSingle' => $item['name_single'],
                     'isActive' => $item['is_active'],
                     'parentId' => $item['parent_id'],
                     'parentName' => $item['parent_name'],
@@ -155,6 +159,12 @@ class ProductCategoryController extends AbstractController
 
         isset($rp['name']) ? $pc->setName($rp['name']) : null;
 
+        if (   isset($rp['nameSingle'])
+            && is_string($rp['nameSingle'])
+        ) {
+            $pc->setNameSingle($rp['nameSingle']);
+        }
+
         isset($rp['isActive']) ? $pc->setIsActive($rp['isActive']) : null;
 
         if (isset($rp['parentId'])) {
@@ -178,6 +188,7 @@ class ProductCategoryController extends AbstractController
             'payload' => array_map(function (array $row) use ($parameterBag) {
                 return [
                     'name' => $row['name'],
+                    'nameSingle' => $row['nameSingle'],
                     'picture' => $row['picture']
                         ? $parameterBag->get('app.images_host') . '/images/product-category-image/' . $row['id']
                         : null,
@@ -272,7 +283,8 @@ class ProductCategoryController extends AbstractController
                 'id' => $categoryWebpage->getWebpage()->getId(),
                 'pagetitle' => $categoryWebpage->getWebpage()->getPagetitle(),
                 'description' => $categoryWebpage->getWebpage()->getDescription(),
-                'headline' => $categoryWebpage->getWebpage()->getHeadline()
+                'headline' => $categoryWebpage->getWebpage()->getHeadline(),
+                'categoryNameSingle' => $categoryWebpage->getCategory()->getNameSingle()
             ]
         ]);
     }

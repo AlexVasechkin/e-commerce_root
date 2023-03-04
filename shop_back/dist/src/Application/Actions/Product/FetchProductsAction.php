@@ -66,7 +66,7 @@ class FetchProductsAction
         foreach ($this->productCategoryRepository->findAll() as $productCategory) {
             $productCategories[$productCategory->getId()] = [
                 'id' => $productCategory->getId(),
-                'name' => $productCategory->getName()
+                'nameSingle' => $productCategory->getNameSingle()
             ];
         }
 
@@ -87,7 +87,7 @@ class FetchProductsAction
                     ? $productCategories[$pci->getCategory()->getId()]
                     : [
                         'id' => '',
-                        'name' => ''
+                        'nameSingle' => ''
                     ],
             ];
         }, $this->productRepository->findBy(['id' => $idList]));
