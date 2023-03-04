@@ -48,7 +48,7 @@ class CategoryWebpageRepository extends ServiceEntityRepository
             ->join('cw.webpage', 'w')
             ->where('pc.isActive = :isActive')
             ->setParameter('isActive', true)
-            ->select('pc.id', 'w.name', 'w.nameSingle', 'pc.picture', 'w.alias')
+            ->select('pc.id', 'w.name', 'pc.nameSingle', 'pc.picture', 'w.alias')
             ->getQuery()
             ->getResult()
         ;
