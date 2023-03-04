@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Domain\Contracts\ProductInterface;
 use App\Domain\Contracts\VendorInterface;
+use App\Entity\Contracts\PutProductInterface;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -339,5 +340,20 @@ class Product
         $this->price = $price;
 
         return $this;
+    }
+
+    public function put(PutProductInterface $request): self
+    {
+        return $this
+            ->setCode($request->getCode())
+            ->setVendor($request->getVendor())
+            ->setName($request->getName())
+            ->setPrice($request->getPrice())
+            ->setCount($request->getCount())
+            ->setWidth($request->getWidth())
+            ->setHeight($request->getHeight())
+            ->setLength($request->getLength())
+            ->setMass($request->getMass())
+        ;
     }
 }

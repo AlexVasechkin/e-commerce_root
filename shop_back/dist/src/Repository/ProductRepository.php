@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Product;
+use App\Entity\Vendor;
 use App\Message\IndexProductMessage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -130,6 +131,17 @@ class ProductRepository extends ServiceEntityRepository
 
         if (!($product instanceof Product)) {
             throw new \Exception(sprintf('Product[id: %s] not found.', $id));
+        }
+
+        return $product;
+    }
+
+    public function findOneByCodeAndVendorOrFail(string $code, Vendor $vendor): Product
+    {
+        $product = $this->findOneBy(['code' => $code, 'vendor' => $vendor]);
+
+        if (is_null($product)) {
+            throw new \Exception(sprintf('Product[code: "%s", vendor_id: %s] not found', $code, $vendor->getId()));
         }
 
         return $product;

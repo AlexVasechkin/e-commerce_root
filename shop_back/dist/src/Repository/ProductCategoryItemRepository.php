@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\Product;
+use App\Entity\ProductCategory;
 use App\Entity\ProductCategoryItem;
 use App\Message\IndexProductMessage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -72,5 +74,22 @@ class ProductCategoryItemRepository extends ServiceEntityRepository
             ->executeQuery($query)
             ->fetchFirstColumn()
         ;
+    }
+
+    public function findOneByCategoryAndProductOrFail(
+        Product $product,
+        ProductCategory $productCategory
+    ): ProductCategoryItem
+    {
+        $entity = $this->findOneBy([
+            'product' => $product,
+            'category' => $productCategory
+        ]);
+
+        if (is_null($entity)) {
+            throw new \Exception(sprintf('ProductCategoryItem[product_id: %s, category_id: %s] not found', $product->getId(), $productCategory->getId()));
+        }
+
+        return $entity;
     }
 }

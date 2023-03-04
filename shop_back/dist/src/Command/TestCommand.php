@@ -2,9 +2,11 @@
 
 namespace App\Command;
 
+use App\Application\Actions\Product\DTO\ImportProductsRequest;
 use App\Application\Actions\Product\Elasticsearch\FetchElasticsearchProductsAction;
 use App\Application\Actions\Product\FilterProduct\DTO\FilterProductRequest;
 use App\Application\Actions\Product\FilterProduct\FilterProductAction;
+use App\Application\Actions\Product\ImportProductsAction;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -19,14 +21,18 @@ class TestCommand extends Command
 
     private FetchElasticsearchProductsAction $fetchElasticsearchProductsAction;
 
+    private ImportProductsAction $importProductsAction;
+
     public function __construct(
         string $name = null,
         FilterProductAction $filterProductAction,
-        FetchElasticsearchProductsAction $fetchElasticsearchProductsAction
+        FetchElasticsearchProductsAction $fetchElasticsearchProductsAction,
+        ImportProductsAction $importProductsAction
     ) {
         parent::__construct($name);
         $this->filterProductAction = $filterProductAction;
         $this->fetchElasticsearchProductsAction = $fetchElasticsearchProductsAction;
+        $this->importProductsAction = $importProductsAction;
     }
 
     protected function configure(): void
@@ -37,8 +43,15 @@ class TestCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         try {
-            $idList = $this->filterProductAction->execute(
-                (new FilterProductRequest())
+            $this->importProductsAction->execute(
+                (new ImportProductsRequest())
+                    ->setDataSet([
+                        [
+                            'vendor_code' => '00007497',
+                            'vendor' => 'ВОМЗ',
+                            'name' => 'Коллиматорный прицел ВОМЗ Пилад Р1х20',
+                        ]
+                    ])
             );
 
         } catch (\Throwable $e) {

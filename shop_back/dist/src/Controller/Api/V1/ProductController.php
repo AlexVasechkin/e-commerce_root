@@ -3,6 +3,8 @@
 namespace App\Controller\Api\V1;
 
 use App\Application\Actions\FindProductsAction;
+use App\Application\Actions\Product\DTO\ImportProductsRequest;
+use App\Application\Actions\Product\ImportProductsAction;
 use App\Entity\Product;
 use App\Entity\ProductCategoryItem;
 use App\Repository\ProductCategoryItemRepository;
@@ -10,6 +12,7 @@ use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
 use App\Repository\VendorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -185,5 +188,30 @@ class ProductController extends AbstractController
         return $this->json([
             'payload' => $findProductsAction->execute($rp['filters'] ?? [])
         ]);
+    }
+
+    /**
+     * @Route("/api/v1/private/import-products", methods={"POST"}, name="app_cp_import-products")
+     */
+    public function importProducts(
+        Request $httpRequest,
+        ImportProductsAction $importProductsAction,
+        ProductCategoryRepository $productCategoryRepository
+    ) {
+        /** @var UploadedFile $file */
+        $file = $httpRequest->files->get('file');
+
+        $productCategoryId = $httpRequest->get('categoryId');
+
+        $request = (new ImportProductsRequest())
+            ->setDataSet(array_map(fn(string $line) => str_getcsv($line, ';'), explode("\r\n", $file->getContent())));
+
+        if ($productCategoryId) {
+            $request->setProductCategory($productCategoryRepository->findOneBy(['id' => $productCategoryId]));
+        }
+
+        $response = $importProductsAction->execute($request);
+
+        return $this->json($response);
     }
 }
