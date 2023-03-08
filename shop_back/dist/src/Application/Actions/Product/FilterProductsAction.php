@@ -5,6 +5,7 @@ namespace App\Application\Actions\Product;
 use App\Entity\ProductCategoryItem;
 use App\Repository\CategoryWebpageRepository;
 use App\Repository\ProductCategoryItemRepository;
+use App\Repository\ProductGroupItemRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ProductWebpageRepository;
 
@@ -20,18 +21,22 @@ class FilterProductsAction
 
     private ProductCategoryItemRepository $productCategoryItemRepository;
 
+    private ProductGroupItemRepository $productGroupItemRepository;
+
     public function __construct(
         ProductRepository $productRepository,
         FilterByIndexAction $filterByIndexAction,
         ProductWebpageRepository $productWebpageRepository,
         CategoryWebpageRepository $categoryWebpageRepository,
-        ProductCategoryItemRepository $productCategoryItemRepository
+        ProductCategoryItemRepository $productCategoryItemRepository,
+        ProductGroupItemRepository $productGroupItemRepository
     ) {
         $this->productRepository = $productRepository;
         $this->filterByIndexAction = $filterByIndexAction;
         $this->productWebpageRepository = $productWebpageRepository;
         $this->categoryWebpageRepository = $categoryWebpageRepository;
         $this->productCategoryItemRepository = $productCategoryItemRepository;
+        $this->productGroupItemRepository = $productGroupItemRepository;
     }
 
     public function execute(array $filters): array
@@ -70,6 +75,28 @@ class FilterProductsAction
                 $this->productWebpageRepository->filterProductsByActivity($filters['productPageActive'])
             );
         }
+
+        if (   isset($filters['vendorIdList'])
+            && is_array($filters['vendorIdList'])
+        ) {
+            if ($filters['vendorIdList'] !== []) {
+                $resultSet = array_intersect(
+                    $resultSet,
+                    $this->productRepository->filterByVendors($filters['vendorIdList'])
+                );
+            }
+        }
+
+//        if (   isset($filters['productGroupIdList'])
+//            && is_array($filters['productGroupIdList'])
+//        ) {
+//            if ($filters['productGroupIdList'] !== []) {
+//                $resultSet = array_intersect(
+//                    $resultSet,
+//                    $this->productGroupItemRepository->filterByGroups($filters['productGroupIdList'])
+//                );
+//            }
+//        }
 
         return $resultSet;
     }

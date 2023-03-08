@@ -99,11 +99,17 @@ class Product
      */
     private $price;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProductGroupItem::class, mappedBy="product")
+     */
+    private $productGroupItems;
+
     public function __construct()
     {
         $this->productImages = new ArrayCollection();
         $this->productCategoryItems = new ArrayCollection();
         $this->productPropertyValues = new ArrayCollection();
+        $this->productGroupItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -355,5 +361,35 @@ class Product
             ->setLength($request->getLength())
             ->setMass($request->getMass())
         ;
+    }
+
+    /**
+     * @return Collection<int, ProductGroupItem>
+     */
+    public function getProductGroupItems(): Collection
+    {
+        return $this->productGroupItems;
+    }
+
+    public function addProductGroupItem(ProductGroupItem $productGroupItem): self
+    {
+        if (!$this->productGroupItems->contains($productGroupItem)) {
+            $this->productGroupItems[] = $productGroupItem;
+            $productGroupItem->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductGroupItem(ProductGroupItem $productGroupItem): self
+    {
+        if ($this->productGroupItems->removeElement($productGroupItem)) {
+            // set the owning side to null (unless already changed)
+            if ($productGroupItem->getProduct() === $this) {
+                $productGroupItem->setProduct(null);
+            }
+        }
+
+        return $this;
     }
 }

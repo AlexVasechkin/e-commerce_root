@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Entity\Vendor;
 use App\Message\IndexProductMessage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -145,5 +146,15 @@ class ProductRepository extends ServiceEntityRepository
         }
 
         return $product;
+    }
+
+    public function filterByVendors(array $vendorIdList): array
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->add('where', $qb->expr()->in('p.vendor', $vendorIdList));
+        return $qb->select('p.id')
+            ->getQuery()
+            ->getSingleColumnResult()
+        ;
     }
 }

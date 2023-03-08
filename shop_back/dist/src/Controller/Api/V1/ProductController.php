@@ -2,8 +2,9 @@
 
 namespace App\Controller\Api\V1;
 
-use App\Application\Actions\FindProductsAction;
 use App\Application\Actions\Product\DTO\ImportProductsRequest;
+use App\Application\Actions\Product\FetchProductsAction;
+use App\Application\Actions\Product\FilterProductsAction;
 use App\Application\Actions\Product\ImportProductsAction;
 use App\Entity\Product;
 use App\Entity\ProductCategoryItem;
@@ -11,6 +12,8 @@ use App\Repository\ProductCategoryItemRepository;
 use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
 use App\Repository\VendorRepository;
+use Avn\Paginator\Paginator;
+use Avn\Paginator\PaginatorRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -142,38 +145,32 @@ class ProductController extends AbstractController
         return $this->json(['success' => true]);
     }
 
-    /**
-     * @Route("/api/v1/private/products", methods={"POST"})
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function list(
-        Request $httpRequest,
-        FindProductsAction $findProductsAction
-    ) {
-        $rp = $httpRequest->toArray();
+    private function listProduct(
+        array $rp,
+        FilterProductsAction $filterProductsAction,
+        FetchProductsAction $fetchProductsAction
+    ): array
+    {
+        $currentPage = $rp['currentPage'] ?? 1;
+        (is_int($currentPage) && ($currentPage > 0)) || $currentPage = 1;
 
-        return $this->json([
-            'payload' => $findProductsAction->execute($rp['filters'] ?? [])
-        ]);
-//        $idList = $productRepository->getFullIdList();
-//
-//        $pagination = (new Paginator())->paginate(
-//            (new PaginatorRequest($idList))
-//                ->setCurrentPage(1)
-//                ->setLimit(10)
-//        );
-//
-//        return $this->json([
-//            'payload' => array_map(function (Product $product) {
-//                return [
-//                    'id' => $product->getId(),
-//                    'code' => $product->getCode(),
-//                    'name' => $product->getName(),
-//                    'count' => $product->getCount()
-//                ];
-//            }, $productRepository->findById($pagination->getIdList())),
-//            'totalPageCount' => $pagination->getTotalPageCount()
-//        ]);
+        $limit = $rp['limit'] ?? 12;
+        (is_int($limit) && ($limit > 0)) || $limit = 12;
+
+        $idList = $filterProductsAction->execute($rp['filters'] ?? []);
+
+        $pagination = (new Paginator())->paginate(
+            (new PaginatorRequest($idList))
+                ->setCurrentPage($currentPage)
+                ->setLimit($limit)
+        );
+
+        return [
+            'payload' => $fetchProductsAction->execute($pagination->getIdList()),
+            'currentPage' => $currentPage,
+            'totalPageCount' => $pagination->getTotalPageCount(),
+            'limit' => $limit
+        ];
     }
 
     /**
@@ -181,13 +178,33 @@ class ProductController extends AbstractController
      */
     public function getProducts(
         Request $httpRequest,
-        FindProductsAction $findProductsAction
+        FilterProductsAction $filterProductsAction,
+        FetchProductsAction $fetchProductsAction
     ) {
-        $rp = $httpRequest->toArray();
+        return $this->json(
+            $this->listProduct(
+                $httpRequest->toArray(),
+                $filterProductsAction,
+                $fetchProductsAction
+            )
+        );
+    }
 
-        return $this->json([
-            'payload' => $findProductsAction->execute($rp['filters'] ?? [])
-        ]);
+    /**
+     * @Route("/api/v1/private/products", methods={"POST"})
+     */
+    public function list(
+        Request $httpRequest,
+        FilterProductsAction $filterProductsAction,
+        FetchProductsAction $fetchProductsAction
+    ) {
+        return $this->json(
+            $this->listProduct(
+                $httpRequest->toArray(),
+                $filterProductsAction,
+                $fetchProductsAction
+            )
+        );
     }
 
     /**

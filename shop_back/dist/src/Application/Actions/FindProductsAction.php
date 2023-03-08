@@ -11,22 +11,17 @@ class FindProductsAction
 
     private FetchProductsAction $fetchProductsAction;
 
-    /**
-     * @param FilterProductsAction $filterProductsAction
-     * @param FetchProductsAction $fetchProductsAction
-     */
-    public function __construct(FilterProductsAction $filterProductsAction, FetchProductsAction $fetchProductsAction)
-    {
+    public function __construct(
+        FilterProductsAction $filterProductsAction,
+        FetchProductsAction $fetchProductsAction
+    ) {
         $this->filterProductsAction = $filterProductsAction;
         $this->fetchProductsAction = $fetchProductsAction;
     }
 
     public function execute(array $filters): array
     {
-        return $this->fetchProductsAction->execute(
-            $this->filterProductsAction->execute(
-                $filters
-            )
-        );
+        $idList = $this->filterProductsAction->execute($filters);
+        return $this->fetchProductsAction->execute($idList);
     }
 }
