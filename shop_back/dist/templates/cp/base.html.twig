@@ -10,15 +10,12 @@
   <!-- Fevicon -->
   <link rel="shortcut icon" href="{{ asset('cp/assets/images/favicon.ico') }}">
   <!-- Start css -->
-  <!-- Switchery css -->
-  <link href="{{ asset('cp/assets/plugins/switchery/switchery.min.css') }}" rel="stylesheet">
-  <!-- apex css -->
-  <link href="{{ asset('cp/assets/plugins/apexcharts/apexcharts.css') }}" rel="stylesheet">
-  <link href="{{ asset('cp/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-  <link href="{{ asset('cp/assets/css/icons.css') }}" rel="stylesheet" type="text/css">
+
   <link href="{{ asset('cp/assets/css/flag-icon.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ asset('cp/assets/css/icons.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ asset('cp/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ asset('cp/assets/css/style.css') }}" rel="stylesheet" type="text/css">
-  <link href="{{ asset(app.request.server.get('MAIN_CP_STYLE_PATH')) }}" rel="stylesheet" type="text/css">
+  {{ encore_entry_link_tags('app') }}
   <!-- End css -->
 </head>
 <body class="horizontal-layout">
@@ -47,8 +44,8 @@
               <li class="list-inline-item">
                 <div class="menubar">
                   <a class="menu-hamburger navbar-toggle bg-transparent" href="javascript:void();" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="true">
-                    <img src="{{ asset('cp/assets/images/svg-icon/collapse.svg') }}" class="img-fluid menu-hamburger-collapse" alt="collapse">
-                    <img src="{{ asset('cp/assets/images/svg-icon/close.svg') }}" class="img-fluid menu-hamburger-close" alt="close">
+                    <!-- <img src="{{ asset('cp/assets/images/svg-icon/collapse.svg') }}" class="img-fluid menu-hamburger-collapse" alt="collapse"> -->
+                    <!-- <img src="{{ asset('cp/assets/images/svg-icon/close.svg') }}" class="img-fluid menu-hamburger-close" alt="close"> -->
                   </a>
                 </div>
               </li>
@@ -103,8 +100,8 @@
                 <li class="list-inline-item menubar-toggle">
                   <div class="menubar">
                     <a class="menu-hamburger navbar-toggle bg-transparent" href="javascript:void();" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="true">
-                      <img src="assets/images/svg-icon/collapse.svg" class="img-fluid menu-hamburger-collapse" alt="collapse">
-                      <img src="assets/images/svg-icon/close.svg" class="img-fluid menu-hamburger-close" alt="close">
+                      <!-- <img src="assets/images/svg-icon/collapse.svg" class="img-fluid menu-hamburger-collapse" alt="collapse"> -->
+                      <!-- <img src="assets/images/svg-icon/close.svg" class="img-fluid menu-hamburger-close" alt="close"> -->
                     </a>
                   </div>
                 </li>
@@ -166,7 +163,7 @@
 </div>
 <!-- End Containerbar -->
 <!-- Start js -->
-<script src="{{ asset(app.request.server.get('MAIN_CP_SCRIPT_PATH')) }}"></script>
+{{ encore_entry_script_tags('app') }}
 <script src="{{ asset('cp/assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('cp/assets/js/popper.min.js') }}"></script>
 <script src="{{ asset('cp/assets/js/bootstrap.min.js') }}"></script>
@@ -174,17 +171,6 @@
 <script src="{{ asset('cp/assets/js/detect.js') }}"></script>
 <script src="{{ asset('cp/assets/js/jquery.slimscroll.js') }}"></script>
 <script src="{{ asset('cp/assets/js/horizontal-menu.js') }}"></script>
-<!-- Switchery js -->
-<script src="{{ asset('cp/assets/plugins/switchery/switchery.min.js') }}"></script>
-<!-- Apex js -->
-<script src="{{ asset('cp/assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
-<script src="{{ asset('cp/assets/plugins/apexcharts/irregular-data-series.js') }}"></script>
-<!-- Slick js -->
-<script src="{{ asset('cp/assets/plugins/slick/slick.min.js') }}"></script>
-<!-- Custom Dashboard js -->
-<script src="{{ asset('cp/assets/js/custom/custom-dashboard.js') }}"></script>
-<!-- Core js -->
-<script src="{{ asset('cp/assets/js/core.js') }}"></script>
 <!-- End js -->
 </body>
 </html>
