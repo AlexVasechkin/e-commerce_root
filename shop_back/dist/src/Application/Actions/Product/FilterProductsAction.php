@@ -23,13 +23,16 @@ class FilterProductsAction
 
     private ProductGroupItemRepository $productGroupItemRepository;
 
+    private FilterByFullNameAction $filterByFullNameAction;
+
     public function __construct(
         ProductRepository $productRepository,
         FilterByIndexAction $filterByIndexAction,
         ProductWebpageRepository $productWebpageRepository,
         CategoryWebpageRepository $categoryWebpageRepository,
         ProductCategoryItemRepository $productCategoryItemRepository,
-        ProductGroupItemRepository $productGroupItemRepository
+        ProductGroupItemRepository $productGroupItemRepository,
+        FilterByFullNameAction $filterByFullNameAction
     ) {
         $this->productRepository = $productRepository;
         $this->filterByIndexAction = $filterByIndexAction;
@@ -37,6 +40,7 @@ class FilterProductsAction
         $this->categoryWebpageRepository = $categoryWebpageRepository;
         $this->productCategoryItemRepository = $productCategoryItemRepository;
         $this->productGroupItemRepository = $productGroupItemRepository;
+        $this->filterByFullNameAction = $filterByFullNameAction;
     }
 
     public function execute(array $filters): array
@@ -98,6 +102,16 @@ class FilterProductsAction
 //            }
 //        }
 
-        return $resultSet;
+        if (   isset($filters['searchString'])
+            && is_string($filters['searchString'])
+            && (strlen($filters['searchString']) > 0)
+        ) {
+            $resultSet = array_intersect(
+                $resultSet,
+                $this->filterByFullNameAction->execute($filters['searchString'])
+            );
+        }
+
+        return array_values($resultSet);
     }
 }

@@ -42,7 +42,8 @@ class IndexProductAction
             $category = $categoryItem->getCategory();
             $body['category'][] = [
                 'id' => $category ? $category->getId() : null,
-                'name' => $category ? $category->getName() : null
+                'name' => $category ? $category->getName() : null,
+                'name_single' => $category ? $category->getNameSingle() : null
             ];
         }
 
@@ -81,6 +82,15 @@ class IndexProductAction
 
             $body['props'][sprintf('p%d', $property['property__id'])] = $value;
         }
+
+        $category = $product->getProductCategoryItems()->first();
+        $category = $category ? $category->getCategory() : null;
+        $body['full_name'] = trim(implode(' ', [
+            $category ? $category->getNameSingle() : '',
+            $vendor ? $vendor->getName() : '',
+            $product->getName() ?? '',
+            $product->getCode() ?? ''
+        ]));
 
         $this->es->client->index([
             'index' => 'products',
