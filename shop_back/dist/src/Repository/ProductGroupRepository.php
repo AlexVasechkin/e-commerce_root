@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ProductGroup;
+use App\Entity\ProductGroupItem;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -66,5 +67,20 @@ class ProductGroupRepository extends ServiceEntityRepository
             ['id' => $id],
             sprintf('ProductGroup[id: %s] not found.', $id)
         );
+    }
+
+    /**
+     * @param array $productGroupIdList
+     * @return ProductGroup[]
+     */
+    public function fetchModelsById(array $productGroupIdList): array
+    {
+        return $this
+            ->createQueryBuilder('pg')
+            ->where('pg.id IN (:ids)')
+            ->setParameter('ids', $productGroupIdList)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

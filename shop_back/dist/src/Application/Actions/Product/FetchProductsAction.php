@@ -5,8 +5,12 @@ namespace App\Application\Actions\Product;
 use App\Entity\Product;
 use App\Entity\ProductCategory;
 use App\Entity\ProductCategoryItem;
+use App\Entity\ProductGroup;
+use App\Entity\ProductGroupItem;
 use App\Entity\Vendor;
 use App\Repository\ProductCategoryRepository;
+use App\Repository\ProductGroupItemRepository;
+use App\Repository\ProductGroupRepository;
 use App\Repository\ProductImageRepository;
 use App\Repository\ProductRepository;
 use App\Repository\VendorRepository;
@@ -24,6 +28,10 @@ class FetchProductsAction
 
     private ProductRepository $productRepository;
 
+    private ProductGroupItemRepository $productGroupItemRepository;
+
+    private ProductGroupRepository $productGroupRepository;
+
     /**
      * @param ProductImageRepository $productImageRepository
      * @param ParameterBagInterface $parameterBag
@@ -31,13 +39,22 @@ class FetchProductsAction
      * @param ProductCategoryRepository $productCategoryRepository
      * @param ProductRepository $productRepository
      */
-    public function __construct(ProductImageRepository $productImageRepository, ParameterBagInterface $parameterBag, VendorRepository $vendorRepository, ProductCategoryRepository $productCategoryRepository, ProductRepository $productRepository)
-    {
+    public function __construct(
+        ProductImageRepository $productImageRepository,
+        ParameterBagInterface $parameterBag,
+        VendorRepository $vendorRepository,
+        ProductCategoryRepository $productCategoryRepository,
+        ProductRepository $productRepository,
+        ProductGroupItemRepository $productGroupItemRepository,
+        ProductGroupRepository $productGroupRepository
+    ) {
         $this->productImageRepository = $productImageRepository;
         $this->parameterBag = $parameterBag;
         $this->vendorRepository = $vendorRepository;
         $this->productCategoryRepository = $productCategoryRepository;
         $this->productRepository = $productRepository;
+        $this->productGroupItemRepository = $productGroupItemRepository;
+        $this->productGroupRepository = $productGroupRepository;
     }
 
     public function execute(array $idList): array
@@ -70,8 +87,21 @@ class FetchProductsAction
             ];
         }
 
-        return array_map(function (Product $product) use ($images, $vendors, $productCategories) {
+        $productGroupItems = $this->productGroupItemRepository->fetchModelsByProducts($idList);
+        $productGroups = $this->productGroupRepository->fetchModelsById(
+            array_unique(array_map(fn(ProductGroupItem $item) => $item->getProductGroup()->getId(), $productGroupItems))
+        );
+
+        return array_map(function (Product $product) use ($images, $vendors, $productCategories, $productGroupItems, $productGroups) {
             $pci = $product->getProductCategoryItems()->first();
+
+            $productGroupIdList = array_map(fn(ProductGroupItem $item) => $item->getProductGroup()->getId(), array_filter($productGroupItems, function (ProductGroupItem $item) use ($product) {
+                return $item->getProduct()->getId() === $product->getId();
+            }));
+
+            $targetGroups = array_filter($productGroups, function (ProductGroup $productGroup) use ($productGroupIdList) {
+                return in_array($productGroup->getId(), $productGroupIdList);
+            });
 
             return [
                 'id' => $product->getId(),
@@ -89,6 +119,12 @@ class FetchProductsAction
                         'id' => '',
                         'nameSingle' => ''
                     ],
+                'productGroups' => array_map(function (ProductGroup $productGroup) {
+                    return [
+                        'id' => $productGroup->getId(),
+                        'name' => $productGroup->getName()
+                    ];
+                }, $targetGroups)
             ];
         }, $this->productRepository->findBy(['id' => $idList]));
     }

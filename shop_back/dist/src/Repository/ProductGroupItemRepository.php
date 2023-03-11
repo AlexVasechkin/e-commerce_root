@@ -66,7 +66,7 @@ class ProductGroupItemRepository extends ServiceEntityRepository
         return $this->findBy(['product' => $product]);
     }
 
-    public function filterByGroups(array $productGroupIdList): array
+    public function filterProductsByGroups(array $productGroupIdList): array
     {
         $qb = $this->createQueryBuilder('pgi');
         return $qb
@@ -75,6 +75,35 @@ class ProductGroupItemRepository extends ServiceEntityRepository
             ->distinct()
             ->getQuery()
             ->getSingleColumnResult()
+        ;
+    }
+
+    public function filterGroupsByProducts(array $productIdList): array
+    {
+        if ($productIdList === []) {
+            return [];
+        }
+
+        return array_unique(array_map(fn(ProductGroupItem $item) => $item->getProductGroup()->getId(),
+            $this->createQueryBuilder('pgi')
+                ->where('pgi.product IN(:ids)')
+                ->setParameter('ids', $productIdList)
+                ->getQuery()
+                ->getResult()
+        ));
+    }
+
+    /**
+     * @param array $productIdList
+     * @return ProductGroupItem[]
+     */
+    public function fetchModelsByProducts(array $productIdList): array
+    {
+        return $this->createQueryBuilder('pgi')
+            ->where('pgi.product IN(:ids)')
+            ->setParameter('ids', $productIdList)
+            ->getQuery()
+            ->getResult()
         ;
     }
 }
