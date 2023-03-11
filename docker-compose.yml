@@ -18,7 +18,7 @@ services:
       - shop_back
     volumes:
      - ./docker-resources/nginx:/etc/nginx/conf.d
-     - ./shop_back/app:/app
+     - ./shop_back/dist/public:/app/public
     networks:
       - shop-network
       - shop-network-external
