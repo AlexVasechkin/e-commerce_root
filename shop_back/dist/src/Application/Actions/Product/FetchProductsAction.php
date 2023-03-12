@@ -123,12 +123,12 @@ class FetchProductsAction
                         'id' => null,
                         'nameSingle' => null
                     ],
-                'productGroups' => array_map(function (ProductGroup $productGroup) {
+                'productGroups' => array_values(array_map(function (ProductGroup $productGroup) {
                     return [
                         'id' => $productGroup->getId(),
                         'name' => $productGroup->getName()
                     ];
-                }, $targetGroups)
+                }, $targetGroups))
             ];
         }, $this->productRepository->findBy(['id' => $idList]));
     }
