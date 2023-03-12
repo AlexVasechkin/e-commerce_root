@@ -93,6 +93,7 @@ class FetchProductsAction
         );
 
         return array_map(function (Product $product) use ($images, $vendors, $productCategories, $productGroupItems, $productGroups) {
+
             $pci = $product->getProductCategoryItems()->first();
 
             $productGroupIdList = array_map(fn(ProductGroupItem $item) => $item->getProductGroup()->getId(), array_filter($productGroupItems, function (ProductGroupItem $item) use ($product) {
@@ -112,12 +113,15 @@ class FetchProductsAction
                 'images' => $images[$product->getId()] ?? [],
                 'vendor' => ($product->getVendor() instanceof Vendor)
                     ? $vendors[$product->getVendor()->getId()]
-                    : [],
+                    : [
+                        'id' => null,
+                        'name' => null
+                    ],
                 'productCategory' => (($pci instanceof ProductCategoryItem) && ($pci->getCategory() instanceof ProductCategory))
                     ? $productCategories[$pci->getCategory()->getId()]
                     : [
-                        'id' => '',
-                        'nameSingle' => ''
+                        'id' => null,
+                        'nameSingle' => null
                     ],
                 'productGroups' => array_map(function (ProductGroup $productGroup) {
                     return [
