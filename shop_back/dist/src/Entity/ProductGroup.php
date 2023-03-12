@@ -38,6 +38,16 @@ class ProductGroup
      */
     private $productGroupItems;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":false})
+     */
+    private $isToHomepage;
+
+    /**
+     * @ORM\Column(type="integer", options={"default":500})
+     */
+    private $homepageSort;
+
     public function __construct()
     {
         $this->productGroupItems = new ArrayCollection();
@@ -64,6 +74,8 @@ class ProductGroup
     {
         return $this
             ->setName($request->getName())
+            ->setIsToHomepage($request->isToHomepage())
+            ->setHomepageSort($request->getHomepageSort())
         ;
     }
 
@@ -93,6 +105,30 @@ class ProductGroup
                 $productGroupItem->setProductGroup(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsToHomepage(): ?bool
+    {
+        return $this->isToHomepage;
+    }
+
+    public function setIsToHomepage(?bool $isToHomepage): self
+    {
+        $this->isToHomepage = $isToHomepage;
+
+        return $this;
+    }
+
+    public function getHomepageSort(): ?int
+    {
+        return $this->homepageSort;
+    }
+
+    public function setHomepageSort(int $homepageSort): self
+    {
+        $this->homepageSort = $homepageSort;
 
         return $this;
     }

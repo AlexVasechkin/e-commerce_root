@@ -68,14 +68,17 @@ class ProductGroupItemRepository extends ServiceEntityRepository
 
     public function filterProductsByGroups(array $productGroupIdList): array
     {
-        $qb = $this->createQueryBuilder('pgi');
-        return $qb
-            ->add('where', $qb->expr()->in('pgi.productGroup', $productGroupIdList))
-            ->select('pgi.product')
-            ->distinct()
-            ->getQuery()
-            ->getSingleColumnResult()
-        ;
+        if ($productGroupIdList === []) {
+            return [];
+        }
+
+        return array_unique(array_map(fn(ProductGroupItem $item) => $item->getProduct()->getId(),
+            $this->createQueryBuilder('pgi')
+                ->where('pgi.productGroup IN(:ids)')
+                ->setParameter('ids', $productGroupIdList)
+                ->getQuery()
+                ->getResult()
+        ));
     }
 
     public function filterGroupsByProducts(array $productIdList): array

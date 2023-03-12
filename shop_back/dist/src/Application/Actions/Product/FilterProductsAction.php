@@ -13,8 +13,6 @@ class FilterProductsAction
 {
     private ProductRepository $productRepository;
 
-    private FilterByIndexAction $filterByIndexAction;
-
     private ProductWebpageRepository $productWebpageRepository;
 
     private CategoryWebpageRepository $categoryWebpageRepository;
@@ -27,7 +25,6 @@ class FilterProductsAction
 
     public function __construct(
         ProductRepository $productRepository,
-        FilterByIndexAction $filterByIndexAction,
         ProductWebpageRepository $productWebpageRepository,
         CategoryWebpageRepository $categoryWebpageRepository,
         ProductCategoryItemRepository $productCategoryItemRepository,
@@ -35,7 +32,6 @@ class FilterProductsAction
         FilterByFullNameAction $filterByFullNameAction
     ) {
         $this->productRepository = $productRepository;
-        $this->filterByIndexAction = $filterByIndexAction;
         $this->productWebpageRepository = $productWebpageRepository;
         $this->categoryWebpageRepository = $categoryWebpageRepository;
         $this->productCategoryItemRepository = $productCategoryItemRepository;
@@ -91,16 +87,16 @@ class FilterProductsAction
             }
         }
 
-//        if (   isset($filters['productGroupIdList'])
-//            && is_array($filters['productGroupIdList'])
-//        ) {
-//            if ($filters['productGroupIdList'] !== []) {
-//                $resultSet = array_intersect(
-//                    $resultSet,
-//                    $this->productGroupItemRepository->filterByGroups($filters['productGroupIdList'])
-//                );
-//            }
-//        }
+        if (   isset($filters['productGroupIdList'])
+            && is_array($filters['productGroupIdList'])
+        ) {
+            if ($filters['productGroupIdList'] !== []) {
+                $resultSet = array_intersect(
+                    $resultSet,
+                    $this->productGroupItemRepository->filterProductsByGroups($filters['productGroupIdList'])
+                );
+            }
+        }
 
         if (   isset($filters['searchString'])
             && is_string($filters['searchString'])
