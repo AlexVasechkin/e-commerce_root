@@ -101,4 +101,18 @@ class ProductGroupController extends AbstractController
 
         return new Response('ok');
     }
+
+    /**
+     * @Route("/api/v1/private/product-group/{id}", methods={"GET"})
+     */
+    public function getInstance(
+        $id,
+        ProductGroupRepository $productGroupRepository
+    ) {
+        return $this->json(
+            $this->serialize(
+                $productGroupRepository->findOneByIdOrFail(intval($id))
+            )
+        );
+    }
 }

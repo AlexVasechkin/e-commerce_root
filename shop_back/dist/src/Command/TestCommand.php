@@ -5,6 +5,7 @@ namespace App\Command;
 use App\Application\Actions\Product\Elasticsearch\FetchElasticsearchProductsAction;
 use App\Application\Actions\Product\FilterProduct\DTO\FilterProductRequest;
 use App\Application\Actions\Product\FilterProduct\FilterProductAction;
+use App\Repository\ProductGroupCategoryItemRepository;
 use App\Repository\ProductGroupItemRepository;
 use App\Repository\ProductGroupRepository;
 use Symfony\Component\Console\Command\Command;
@@ -21,14 +22,18 @@ class TestCommand extends Command
 
     private ProductGroupRepository $productGroupRepository;
 
+    private ProductGroupCategoryItemRepository $productGroupCategoryItemRepository;
+
     public function __construct(
         string $name = null,
         ProductGroupItemRepository $productGroupItemRepository,
-        ProductGroupRepository $productGroupRepository
+        ProductGroupRepository $productGroupRepository,
+        ProductGroupCategoryItemRepository $productGroupCategoryItemRepository
     ) {
         parent::__construct($name);
         $this->productGroupItemRepository = $productGroupItemRepository;
         $this->productGroupRepository = $productGroupRepository;
+        $this->productGroupCategoryItemRepository = $productGroupCategoryItemRepository;
     }
 
     protected function configure(): void
@@ -39,6 +44,8 @@ class TestCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         try {
+            dd($this->productGroupCategoryItemRepository->fetchGroupsByCategories([4]));
+
             $groupIdList = $this->productGroupItemRepository->filterGroupsByProducts([285]);
             $productGroups = $this->productGroupRepository->fetchModelsById(
                 $groupIdList

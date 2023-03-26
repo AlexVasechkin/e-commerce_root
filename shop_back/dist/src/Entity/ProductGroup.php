@@ -48,14 +48,26 @@ class ProductGroup
      */
     private $homepageSort;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProductGroupCategoryItem::class, mappedBy="productGroup")
+     */
+    private $productGroupCategoryItems;
+
     public function __construct()
     {
         $this->productGroupItems = new ArrayCollection();
+        $this->productGroupCategoryItems = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
     }
 
     public function getName(): ?string
@@ -117,7 +129,6 @@ class ProductGroup
     public function setIsToHomepage(?bool $isToHomepage): self
     {
         $this->isToHomepage = $isToHomepage;
-
         return $this;
     }
 
@@ -129,6 +140,35 @@ class ProductGroup
     public function setHomepageSort(int $homepageSort): self
     {
         $this->homepageSort = $homepageSort;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductGroupCategoryItem>
+     */
+    public function getProductGroupCategoryItems(): Collection
+    {
+        return $this->productGroupCategoryItems;
+    }
+
+    public function addProductGroupCategoryItem(ProductGroupCategoryItem $productGroupCategoryItem): self
+    {
+        if (!$this->productGroupCategoryItems->contains($productGroupCategoryItem)) {
+            $this->productGroupCategoryItems[] = $productGroupCategoryItem;
+            $productGroupCategoryItem->setProductGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductGroupCategoryItem(ProductGroupCategoryItem $productGroupCategoryItem): self
+    {
+        if ($this->productGroupCategoryItems->removeElement($productGroupCategoryItem)) {
+            // set the owning side to null (unless already changed)
+            if ($productGroupCategoryItem->getProductGroup() === $this) {
+                $productGroupCategoryItem->setProductGroup(null);
+            }
+        }
 
         return $this;
     }

@@ -75,6 +75,10 @@ class ProductGroupRepository extends ServiceEntityRepository
      */
     public function fetchModelsById(array $productGroupIdList): array
     {
+        if ($productGroupIdList === []) {
+            return [];
+        }
+
         return $this
             ->createQueryBuilder('pg')
             ->where('pg.id IN (:ids)')

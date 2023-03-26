@@ -9,18 +9,14 @@ class CreateProductGroupRequest
 {
     private string $name;
 
-    private bool $isToHomepage;
+    private bool $isToHomepage = false;
 
-    private int $homepageSort;
+    private int $homepageSort = 500;
 
     public function __construct(
-        string $name,
-        bool $isToHomepage = false,
-        int $homepageSort = 500
+        string $name
     ) {
         $this->name = $name;
-        $this->isToHomepage = $isToHomepage;
-        $this->homepageSort = $homepageSort;
     }
 
     public function getName(): string
@@ -28,13 +24,31 @@ class CreateProductGroupRequest
         return $this->name;
     }
 
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
     public function isToHomepage(): bool
     {
         return $this->isToHomepage;
     }
 
+    public function setIsToHomepage(bool $isToHomepage): self
+    {
+        $this->isToHomepage = $isToHomepage;
+        return $this;
+    }
+
     public function getHomepageSort(): int
     {
         return $this->homepageSort;
+    }
+
+    public function setHomepageSort(int $homepageSort): self
+    {
+        $this->homepageSort = $homepageSort;
+        return $this;
     }
 }

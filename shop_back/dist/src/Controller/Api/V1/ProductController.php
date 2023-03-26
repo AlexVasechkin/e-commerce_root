@@ -8,8 +8,12 @@ use App\Application\Actions\Product\FilterProductsAction;
 use App\Application\Actions\Product\ImportProductsAction;
 use App\Entity\Product;
 use App\Entity\ProductCategoryItem;
+use App\Entity\ProductGroup;
+use App\Entity\ProductGroupCategoryItem;
 use App\Repository\ProductCategoryItemRepository;
 use App\Repository\ProductCategoryRepository;
+use App\Repository\ProductGroupCategoryItemRepository;
+use App\Repository\ProductGroupRepository;
 use App\Repository\ProductRepository;
 use App\Repository\VendorRepository;
 use Avn\Paginator\Paginator;
@@ -230,5 +234,50 @@ class ProductController extends AbstractController
         $response = $importProductsAction->execute($request);
 
         return $this->json($response);
+    }
+
+    /**
+     * @Route("/api/v1/public/category-products-by-groups/{id}", {"GET"})
+     */
+    public function listProductsViaGroupsForCategory(
+        $id,
+        ProductGroupCategoryItemRepository $productGroupCategoryItemRepository,
+        ProductGroupRepository $productGroupRepository,
+        FilterProductsAction $filterProductsAction,
+        FetchProductsAction $fetchProductsAction
+    ) {
+        $categoryId = intval($id);
+
+        $productGroupCategoryItems = $productGroupCategoryItemRepository->fetchGroupsByCategories([$categoryId]);
+        $productGroupIdList = array_map(fn(ProductGroupCategoryItem $item) => $item->getProductGroup()->getId(), $productGroupCategoryItems);
+
+        $productGroupsDict = [];
+        foreach ($productGroupRepository->fetchModelsById($productGroupIdList) as $productGroup) {
+            $productGroupsDict[$productGroup->getId()] = $productGroup;
+        }
+
+        return $this->json([
+            'payload' => [
+                'groups' => array_map(function (ProductGroupCategoryItem $item) use ($productGroupsDict) {
+
+                    /** @var ProductGroup $productGroup */
+                    $productGroup = $productGroupsDict[$item->getProductGroup()->getId()] ?? null;
+
+                    return [
+                        'id' => $productGroup ? $productGroup->getId() : null,
+                        'name' => $productGroup ? $productGroup->getName() : null,
+                        'sortOrder' => $item->getSortOrder()
+                    ];
+
+                }, $productGroupCategoryItems),
+                'products' => $fetchProductsAction->execute(
+                    $filterProductsAction->execute([
+                        'categoryId' => $categoryId,
+                        'productPageActive' => true,
+                        'productGroupIdList' => $productGroupIdList
+                    ])
+                )
+            ]
+        ]);
     }
 }

@@ -71,17 +71,29 @@ class ProductCategory
      */
     private $nameSingle;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProductGroupCategoryItem::class, mappedBy="productCategory")
+     */
+    private $productGroupCategoryItems;
+
     public function __construct()
     {
         $this->productCategories = new ArrayCollection();
         $this->categoryProperties = new ArrayCollection();
         $this->productCategoryItems = new ArrayCollection();
         $this->modelItems = new ArrayCollection();
+        $this->productGroupCategoryItems = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
     }
 
     public function getName(): ?string
@@ -274,6 +286,36 @@ class ProductCategory
     public function setNameSingle(?string $nameSingle): self
     {
         $this->nameSingle = $nameSingle;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductGroupCategoryItem>
+     */
+    public function getProductGroupCategoryItems(): Collection
+    {
+        return $this->productGroupCategoryItems;
+    }
+
+    public function addProductGroupCategoryItem(ProductGroupCategoryItem $productGroupCategoryItem): self
+    {
+        if (!$this->productGroupCategoryItems->contains($productGroupCategoryItem)) {
+            $this->productGroupCategoryItems[] = $productGroupCategoryItem;
+            $productGroupCategoryItem->setProductCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductGroupCategoryItem(ProductGroupCategoryItem $productGroupCategoryItem): self
+    {
+        if ($this->productGroupCategoryItems->removeElement($productGroupCategoryItem)) {
+            // set the owning side to null (unless already changed)
+            if ($productGroupCategoryItem->getProductCategory() === $this) {
+                $productGroupCategoryItem->setProductCategory(null);
+            }
+        }
 
         return $this;
     }
