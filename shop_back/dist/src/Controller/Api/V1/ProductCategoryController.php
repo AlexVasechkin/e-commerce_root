@@ -284,7 +284,8 @@ class ProductCategoryController extends AbstractController
                 'pagetitle' => $categoryWebpage->getWebpage()->getPagetitle(),
                 'description' => $categoryWebpage->getWebpage()->getDescription(),
                 'headline' => $categoryWebpage->getWebpage()->getHeadline(),
-                'categoryNameSingle' => $categoryWebpage->getCategory()->getNameSingle()
+                'categoryNameSingle' => $categoryWebpage->getCategory()->getNameSingle(),
+                'productCategoryId' => $categoryWebpage->getCategory()->getId()
             ]
         ]);
     }
