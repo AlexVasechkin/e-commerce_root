@@ -67,10 +67,21 @@ services:
     networks:
       - shop-network
 
-  queue-consumer:
+  queue-consumer_async:
     build: ./shop_back
-    container_name: shop_queue-consumer
+    container_name: shop_queue-consumer_async
     command: 'php bin/console messenger:consume async -vv'
+    restart: unless-stopped
+    depends_on:
+      - shop_migrations
+    networks:
+      - shop-network
+
+  queue-consumer_parsing:
+    build: ./shop_back
+    container_name: shop_queue-consumer_parsing
+    command: 'php bin/console messenger:consume parsing -vv'
+    restart: unless-stopped
     depends_on:
       - shop_migrations
     networks:

@@ -55,4 +55,18 @@ class ProductWebpageRepository extends ServiceEntityRepository
             ->fetchFirstColumn()
         ;
     }
+
+    public function filterProductsHasPage(): array
+    {
+        $q = implode(PHP_EOL, [
+            "select distinct",
+            "     t.product_id",
+            "  from product_webpage as t"
+        ]);
+
+        return $this->getEntityManager()->getConnection()
+            ->executeQuery($q)
+            ->fetchFirstColumn()
+        ;
+    }
 }

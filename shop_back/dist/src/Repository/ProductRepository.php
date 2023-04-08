@@ -157,4 +157,23 @@ class ProductRepository extends ServiceEntityRepository
             ->getSingleColumnResult()
         ;
     }
+
+    public function filterToParsePrice(): array
+    {
+        $q = implode(PHP_EOL, [
+            'select',
+            '     p.id',
+            '  from product as p',
+            '  where p.parser_code is not null',
+            '     and p.donor_url is not null',
+            ';'
+        ]);
+
+        return $this
+            ->getEntityManager()
+            ->getConnection()
+            ->executeQuery($q)
+            ->fetchFirstColumn()
+        ;
+    }
 }

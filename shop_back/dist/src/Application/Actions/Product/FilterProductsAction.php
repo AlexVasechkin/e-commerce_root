@@ -108,6 +108,15 @@ class FilterProductsAction
             );
         }
 
+        if (   !empty($filters['productHasPage'])
+            && is_bool($filters['productHasPage'])
+        ) {
+            $resultSet = $filters['productHasPage']
+                ? array_intersect($resultSet, $this->productWebpageRepository->filterProductsHasPage())
+                : array_diff($resultSet, $this->productWebpageRepository->filterProductsHasPage())
+            ;
+        }
+
         return array_values($resultSet);
     }
 }

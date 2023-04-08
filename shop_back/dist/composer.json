@@ -16,6 +16,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.13",
         "elasticsearch/elasticsearch": "8.5.2",
+        "electrolinux/phpquery": "^0.9.6",
         "fakerphp/faker": "^1.20",
         "firebase/php-jwt": "^6.3",
         "phpdocumentor/reflection-docblock": "^5.3",
@@ -47,7 +48,8 @@
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "php-http/discovery": true
         },
         "optimize-autoloader": true,
         "preferred-install": {

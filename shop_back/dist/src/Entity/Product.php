@@ -104,6 +104,16 @@ class Product
      */
     private $productGroupItems;
 
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $parserCode;
+
+    /**
+     * @ORM\Column(type="string", length=2000, nullable=true)
+     */
+    private $donorUrl;
+
     public function __construct()
     {
         $this->productImages = new ArrayCollection();
@@ -389,6 +399,30 @@ class Product
                 $productGroupItem->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getParserCode(): ?string
+    {
+        return $this->parserCode;
+    }
+
+    public function setParserCode(?string $parserCode): self
+    {
+        $this->parserCode = $parserCode;
+
+        return $this;
+    }
+
+    public function getDonorUrl(): ?string
+    {
+        return $this->donorUrl;
+    }
+
+    public function setDonorUrl(?string $donorUrl): self
+    {
+        $this->donorUrl = $donorUrl;
 
         return $this;
     }

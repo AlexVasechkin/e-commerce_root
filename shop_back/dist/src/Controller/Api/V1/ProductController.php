@@ -38,7 +38,9 @@ class ProductController extends AbstractController
             'height' => $product->getHeight(),
             'mass' => $product->getMass(),
             'count' => $product->getCount(),
-            'price' => $product->getPrice() ?? 0
+            'price' => $product->getPrice() ?? 0,
+            'donorUrl' => $product->getDonorUrl(),
+            'parserCode' => $product->getParserCode()
         ];
     }
 
@@ -143,6 +145,10 @@ class ProductController extends AbstractController
         isset($payload['count']) ? $product->setCount($payload['count']) : null;
 
         (isset($payload['price']) && is_int($payload['price'])) ? $product->setPrice($payload['price']) : null;
+
+        !empty($payload['parserCode']) ? $product->setParserCode($payload['parserCode']) : null;
+
+        !empty($payload['donorUrl']) ? $product->setDonorUrl($payload['donorUrl']) : null;
 
         $productRepository->update($product);
 

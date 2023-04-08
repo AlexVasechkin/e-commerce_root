@@ -2,9 +2,7 @@
 
 namespace App\Command;
 
-use App\Application\Actions\Product\Elasticsearch\FetchElasticsearchProductsAction;
-use App\Application\Actions\Product\FilterProduct\DTO\FilterProductRequest;
-use App\Application\Actions\Product\FilterProduct\FilterProductAction;
+use App\Message\ParseProductPriceMessage;
 use App\Repository\ProductGroupCategoryItemRepository;
 use App\Repository\ProductGroupItemRepository;
 use App\Repository\ProductGroupRepository;
@@ -12,6 +10,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class TestCommand extends Command
 {
@@ -24,16 +23,20 @@ class TestCommand extends Command
 
     private ProductGroupCategoryItemRepository $productGroupCategoryItemRepository;
 
+    private MessageBusInterface $messageBus;
+
     public function __construct(
         string $name = null,
         ProductGroupItemRepository $productGroupItemRepository,
         ProductGroupRepository $productGroupRepository,
-        ProductGroupCategoryItemRepository $productGroupCategoryItemRepository
+        ProductGroupCategoryItemRepository $productGroupCategoryItemRepository,
+        MessageBusInterface $messageBus
     ) {
         parent::__construct($name);
         $this->productGroupItemRepository = $productGroupItemRepository;
         $this->productGroupRepository = $productGroupRepository;
         $this->productGroupCategoryItemRepository = $productGroupCategoryItemRepository;
+        $this->messageBus = $messageBus;
     }
 
     protected function configure(): void
@@ -44,14 +47,8 @@ class TestCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         try {
-            dd($this->productGroupCategoryItemRepository->fetchGroupsByCategories([4]));
-
-            $groupIdList = $this->productGroupItemRepository->filterGroupsByProducts([285]);
-            $productGroups = $this->productGroupRepository->fetchModelsById(
-                $groupIdList
-            );
-
-            dd($productGroups);
+//            $htmlContent = file_get_contents('https://worldguns.store/optika/voennaya-optika/kollimatornye-pricely/kollimatornyy-pricel-aimpoint-9000sc-nv/');
+            $this->messageBus->dispatch(new ParseProductPriceMessage(265));
 
         } catch (\Throwable $e) {
             $io->error(implode(PHP_EOL, [$e->getMessage(), $e->getTraceAsString()]));
