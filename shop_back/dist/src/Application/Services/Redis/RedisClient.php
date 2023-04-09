@@ -10,6 +10,6 @@ class RedisClient
 
     public function __construct()
     {
-        $this->client = new Predis\Client('tcp://shop_redis:6379');
+        $this->client = new Predis\Client('tcp://127.0.0.1:46380');
     }
 }
