@@ -21,6 +21,8 @@ parameters:
 
     app.images_host: '%env(IMAGES_HOST)%'
 
+    app.cache_dsn: '%env(CACHE_DSN)%'
+
 services:
     # default configuration for services in *this* file
     _defaults:
