@@ -21,6 +21,7 @@ services:
      - app:/app
     networks:
       - shop-network
+      - shop-network-external
 
   shop_back:
     image: webdevops/php:7.4-alpine
@@ -109,3 +110,6 @@ volumes:
 networks:
   shop-network:
     driver: bridge
+
+  shop-network-external:
+    external: true
