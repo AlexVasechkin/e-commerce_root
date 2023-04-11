@@ -187,6 +187,7 @@ class ProductCategoryController extends AbstractController
         return $this->json([
             'payload' => array_map(function (array $row) use ($parameterBag) {
                 return [
+                    'categoryId' => $row['id'],
                     'name' => $row['name'],
                     'nameSingle' => $row['nameSingle'],
                     'picture' => $row['picture']
