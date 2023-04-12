@@ -2,61 +2,29 @@
 
 namespace App\Application\Actions\Product;
 
-use App\Application\Services\Elasticsearch\Elasticsearch;
+use App\Application\Services\Redis\RedisClient;
 
 class FilterByFullNameAction
 {
-    private Elasticsearch $es;
+    private RedisClient $redis;
 
-    public function __construct(Elasticsearch $es)
+    public function __construct(RedisClient $redis)
     {
-        $this->es = $es;
+        $this->redis = $redis;
     }
 
     private function reloadDataSet(): array
     {
-        $resultSet = [];
+        $r = [];
 
-        $searchAfter = 0;
+        foreach ($this->redis->client->keys('app:product:*:full-name') as $key) {
+            $r[] = [
+                'id' => intval(str_replace(':full-name', '', str_replace('app:product:', '', $key))),
+                'name' => $this->redis->client->get($key)
+            ];
+        }
 
-        do {
-            $esResponse = $this->es->client->search([
-                'index' => 'products',
-                'size' => 10000,
-                '_source' => ['id', 'full_name'],
-                'body' => [
-                    'query' => [
-                        'bool' => [
-                            'must' => []
-                        ]
-                    ],
-                    'search_after' => [$searchAfter]
-                ],
-                'sort' => ['id']
-            ])->asArray();
-
-            $hits = ($esResponse['hits'] ?? [])['hits'] ?? [];
-
-            if (count($hits) === 0) {
-                break;
-            }
-
-            foreach ($hits as $hit) {
-
-                $searchAfter = intval($hit['_id']);
-
-                try {
-                    $resultSet[] = [
-                        'id' => $hit['_source']['id'],
-                        'name' => $hit['_source']['full_name']
-                    ];
-                } catch (\Throwable $e) {}
-
-            }
-
-        } while (true);
-
-        return $resultSet;
+        return $r;
     }
 
     private function filterByWord(string $word, array &$dataSet): array

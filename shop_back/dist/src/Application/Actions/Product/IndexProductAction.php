@@ -2,23 +2,21 @@
 
 namespace App\Application\Actions\Product;
 
-use App\Application\Services\Elasticsearch\Elasticsearch;
+use App\Application\Services\Redis\RedisClient;
 use App\Repository\ProductRepository;
 
 class IndexProductAction
 {
-    private Elasticsearch $es;
-
     private ProductRepository $productRepository;
 
-    /**
-     * @param Elasticsearch $es
-     * @param ProductRepository $productRepository
-     */
-    public function __construct(Elasticsearch $es, ProductRepository $productRepository)
-    {
-        $this->es = $es;
+    private RedisClient $redis;
+
+    public function __construct(
+        ProductRepository $productRepository,
+        RedisClient $redis
+    ) {
         $this->productRepository = $productRepository;
+        $this->redis = $redis;
     }
 
     public function execute(int $productId)
@@ -92,10 +90,12 @@ class IndexProductAction
             $product->getCode() ?? ''
         ]));
 
-        $this->es->client->index([
-            'index' => 'products',
-            'id' => $productId,
-            'body' => $body
-        ]);
+        $this->redis->client->set(sprintf('app:product:%s:full-name', $product->getId()), $body['full_name']);
+
+//        $this->es->client->index([
+//            'index' => 'products',
+//            'id' => $productId,
+//            'body' => $body
+//        ]);
     }
 }

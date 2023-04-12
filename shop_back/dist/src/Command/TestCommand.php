@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Application\Actions\Product\FilterByFullNameAction;
 use App\Message\ParseProductPriceMessage;
 use App\Repository\ProductGroupCategoryItemRepository;
 use App\Repository\ProductGroupItemRepository;
@@ -25,18 +26,22 @@ class TestCommand extends Command
 
     private MessageBusInterface $messageBus;
 
+    private FilterByFullNameAction $filterByFullNameAction;
+
     public function __construct(
         string $name = null,
         ProductGroupItemRepository $productGroupItemRepository,
         ProductGroupRepository $productGroupRepository,
         ProductGroupCategoryItemRepository $productGroupCategoryItemRepository,
-        MessageBusInterface $messageBus
+        MessageBusInterface $messageBus,
+        FilterByFullNameAction $filterByFullNameAction
     ) {
         parent::__construct($name);
         $this->productGroupItemRepository = $productGroupItemRepository;
         $this->productGroupRepository = $productGroupRepository;
         $this->productGroupCategoryItemRepository = $productGroupCategoryItemRepository;
         $this->messageBus = $messageBus;
+        $this->filterByFullNameAction = $filterByFullNameAction;
     }
 
     protected function configure(): void
@@ -48,7 +53,7 @@ class TestCommand extends Command
 
         try {
 //            $htmlContent = file_get_contents('https://worldguns.store/optika/voennaya-optika/kollimatornye-pricely/kollimatornyy-pricel-aimpoint-9000sc-nv/');
-            $this->messageBus->dispatch(new ParseProductPriceMessage(265));
+//            $this->messageBus->dispatch(new ParseProductPriceMessage(265));
 
         } catch (\Throwable $e) {
             $io->error(implode(PHP_EOL, [$e->getMessage(), $e->getTraceAsString()]));
