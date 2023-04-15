@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 
 services:
   shop_redisinsight:
@@ -9,14 +9,21 @@ services:
     networks:
       - shop-network
 
-  shop_back:
+  syncer:
+    build:
+      context: ./syncer
+    container_name: shop_back_app_syncer
+    command: '/root/sync.sh'
     volumes:
-     - ./shop_back/dist/src:/app/src
-     - ./shop_back/dist/config:/app/config
-     - ./shop_back/dist/migrations:/app/migrations
-     - ./shop_back/dist/templates:/app/templates
+      - ./shop_back/dist:/tmp/app_source
+      - shop-back-app-vol:/tmp/app
+    depends_on:
+      - back-app-builder
+
+  shop_back:
+    image: webdevops/php-dev:7.4-alpine
     ports:
-     - "9003:9003"
+      - 49003:9003
     environment:
       - PHP_DEBUGGER=xdebug
       - XDEBUG_MODE=debug
@@ -26,14 +33,19 @@ services:
     networks:
       - local-db-network
 
-  queue-consumer:
-    volumes:
-      - ./shop_back/dist/src:/app/src
-      - ./shop_back/dist/migrations:/app/migrations
+  queue-consumer_async:
+    networks:
+      - local-db-network
+
+  queue-consumer_parsing:
     networks:
       - local-db-network
 
   shop_migrations:
+    networks:
+      - local-db-network
+
+  back-app-builder:
     networks:
       - local-db-network
 

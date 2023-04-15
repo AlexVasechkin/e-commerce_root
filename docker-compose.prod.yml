@@ -18,7 +18,7 @@ services:
       - shop_back
     volumes:
      - ./docker-resources/nginx:/etc/nginx/conf.d
-     - app:/app
+     - shop-back-app-vol:/app
     networks:
       - shop-network
       - shop-network-external
@@ -27,7 +27,7 @@ services:
     image: webdevops/php:7.4-alpine
     container_name: shop_back
     volumes:
-      - app:/app
+      - shop-back-app-vol:/app
     depends_on:
       - shop_migrations
     networks:
@@ -45,7 +45,7 @@ services:
     command: 'php /app/bin/console messenger:consume async -vv'
     restart: unless-stopped
     volumes:
-      - app:/app
+      - shop-back-app-vol:/app
     depends_on:
       - shop_migrations
     networks:
@@ -57,7 +57,7 @@ services:
     command: 'php /app/bin/console messenger:consume parsing -vv'
     restart: unless-stopped
     volumes:
-      - app:/app
+      - shop-back-app-vol:/app
     depends_on:
       - shop_migrations
     networks:
@@ -68,21 +68,21 @@ services:
     container_name: shop_migrations
     command: 'php /app/bin/console --no-interaction doctrine:migrations:migrate'
     volumes:
-      - app:/app
+      - shop-back-app-vol:/app
     networks:
       - shop-network
 
-  shop_back_app:
+  back-app-builder:
     build: ./shop_back
-    container_name: shop_back_app
+    container_name: shop_back-app-builder
     restart: unless-stopped
     volumes:
-      - app:/app
+      - shop-back-app-vol:/app
     networks:
       - shop-network
 
 volumes:
-  app:
+  shop-back-app-vol:
 
 networks:
   shop-network:
