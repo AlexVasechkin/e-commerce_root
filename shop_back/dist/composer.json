@@ -11,6 +11,7 @@
         "ext-simplexml": "*",
         "async-aws/s3": "^1.12",
         "avn/paginator": "^0.1.0",
+        "behat/transliterator": "^1.5",
         "doctrine/annotations": "^1.13",
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.2",

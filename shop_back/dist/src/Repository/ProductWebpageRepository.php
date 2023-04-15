@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Product;
 use App\Entity\ProductWebpage;
+use App\Entity\Webpage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,13 +23,15 @@ class ProductWebpageRepository extends ServiceEntityRepository
         parent::__construct($registry, ProductWebpage::class);
     }
 
-    public function save(ProductWebpage $entity, bool $flush = false): void
+    public function save(ProductWebpage $entity, bool $flush = false): ProductWebpage
     {
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+
+        return $entity;
     }
 
     public function remove(ProductWebpage $entity, bool $flush = false): void
@@ -68,5 +72,19 @@ class ProductWebpageRepository extends ServiceEntityRepository
             ->executeQuery($q)
             ->fetchFirstColumn()
         ;
+    }
+
+    public function findOneByProductAndWebpageOrFail(Product $product, Webpage $webpage): ProductWebpage
+    {
+        $entity = $this->findOneBy([
+            'product' => $product,
+            'webpage' => $webpage
+        ]);
+
+        if (is_null($entity)) {
+            throw new \Exception(sprintf('ProductWebpage[product_id: %s, webpage_id: %s] not found', $product->getId(), $webpage->getId()));
+        }
+
+        return $entity;
     }
 }
