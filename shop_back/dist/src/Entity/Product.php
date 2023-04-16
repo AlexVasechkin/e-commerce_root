@@ -370,6 +370,8 @@ class Product
             ->setHeight($request->getHeight())
             ->setLength($request->getLength())
             ->setMass($request->getMass())
+            ->setDonorUrl($request->getDonorUrl())
+            ->setParserCode($request->getParserCode())
         ;
     }
 

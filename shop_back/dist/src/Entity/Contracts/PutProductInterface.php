@@ -23,4 +23,8 @@ interface PutProductInterface
     public function getLength(): float;
 
     public function getMass(): float;
+
+    public function getDonorUrl(): ?string;
+
+    public function getParserCode(): ?string;
 }

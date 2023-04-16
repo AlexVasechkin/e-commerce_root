@@ -26,8 +26,21 @@ class CreateProductRequest
 
     private float $mass;
 
-    public function __construct(string $code, Vendor $vendor, string $name, int $price, int $count, float $width, float $height, float $length, float $mass)
-    {
+    private ?string $donorUrl = null;
+
+    private ?string $parserCode = null;
+
+    public function __construct(
+        string $code,
+        Vendor $vendor,
+        string $name,
+        int $price,
+        int $count,
+        float $width,
+        float $height,
+        float $length,
+        float $mass
+    ) {
         $this->code = $code;
         $this->vendor = $vendor;
         $this->name = $name;
@@ -109,5 +122,27 @@ class CreateProductRequest
     public function getMass(): float
     {
         return $this->mass;
+    }
+
+    public function getDonorUrl(): ?string
+    {
+        return $this->donorUrl;
+    }
+
+    public function setDonorUrl(?string $donorUrl): self
+    {
+        $this->donorUrl = $donorUrl;
+        return $this;
+    }
+
+    public function getParserCode(): ?string
+    {
+        return $this->parserCode;
+    }
+
+    public function setParserCode(?string $parserCode): self
+    {
+        $this->parserCode = $parserCode;
+        return $this;
     }
 }

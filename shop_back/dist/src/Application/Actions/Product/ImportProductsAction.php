@@ -16,6 +16,10 @@ class ImportProductsAction
     private const COLUMN_CODE = 0;
     private const COLUMN_VENDOR = 1;
     private const COLUMN_NAME = 2;
+    private const COLUMN_DONOR_URL = 3;
+    private const COLUMN_PARSER_CODE = 4;
+
+    private const PARSER_CODE_DEFAULT = 'worldguns';
 
     private CreateVendorAction $createVendorAction;
 
@@ -89,17 +93,22 @@ class ImportProductsAction
                         && isset($vendorDict[trim($productData[self::COLUMN_VENDOR])])
                        )
                 ) {
-                    $product = $this->createProductAction->execute(new CreateProductRequest(
-                        trim($productData[self::COLUMN_CODE]),
-                        $vendorDict[trim($productData[self::COLUMN_VENDOR])],
-                        trim($productData[self::COLUMN_NAME]) ?? '',
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ));
+                    $product = $this->createProductAction->execute(
+                        (new CreateProductRequest(
+                            trim($productData[self::COLUMN_CODE]),
+                            $vendorDict[trim($productData[self::COLUMN_VENDOR])],
+                            trim($productData[self::COLUMN_NAME] ?? ''),
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                            )
+                        )
+                            ->setDonorUrl($productData[self::COLUMN_DONOR_URL] ?? null)
+                            ->setParserCode($productData[self::COLUMN_PARSER_CODE] ?? self::PARSER_CODE_DEFAULT)
+                    );
 
                     if ($request->getProductCategory()) {
                         $this->createProductCategoryItemAction->execute(
